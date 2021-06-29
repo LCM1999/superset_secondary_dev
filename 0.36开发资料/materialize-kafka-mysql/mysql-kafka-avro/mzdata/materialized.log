@@ -1,0 +1,738 @@
+2021-05-26T12:32:17.084138Z  INFO materialized: booting server
+materialized v0.7.3 (c186b2446)
+OpenSSL 1.1.1k  25 Mar 2021
+librdkafka v1.6.1
+invoked as: materialized -w 1
+os: Ubuntu 20.04 (focal) [64-bit]
+cpus: 6 logical, 6 physical
+cpu0: Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz 2904MHz
+memory: 12871020KB total, 4190546KB used
+swap: 2147479KB total, 0KB used    
+2021-05-26T12:32:17.130076Z  INFO coord::timestamp: Starting Timestamping Thread. Frequency: 10 ms.    
+2021-05-26T12:32:17.133265Z  INFO materialized::version_check: Unable to build http client to check if materialized is up to date: builder error: unknown proxy scheme    
+2021-05-26T12:33:33.259943Z  INFO coord::catalog: create source materialize.public.customers2 (u1)    
+2021-05-26T12:33:33.260023Z  INFO coord::catalog: create index materialize.public.customers2_primary_idx (u2)    
+2021-05-26T12:33:33.260881Z  INFO coord::timestamp: Timestamping Source u1 with Real Time Consistency.    
+2021-05-26T12:33:33.261304Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u1/28) on worker 0    
+2021-05-26T12:33:33.263628Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.customers (source u1)    
+2021-05-26T12:55:02.753926Z  INFO coord::catalog: create source materialize.public.customers (u5)    
+2021-05-26T12:55:02.753999Z  INFO coord::catalog: create index materialize.public.customers_primary_idx (u6)    
+2021-05-26T12:55:02.758236Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u5/29) on worker 0    
+2021-05-26T12:55:02.762107Z  INFO coord::timestamp: Timestamping Source u5 with Real Time Consistency.    
+2021-05-26T12:55:02.764548Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.customers (source u5)    
+2021-05-26T12:55:03.764192Z  WARN interchange::avro::decode: Record with unrecognized source coordinates in materialize.public.customers_primary_idx. You might be using an unsupported upstream database.    
+2021-05-26T13:38:31.206002Z  INFO coord::catalog: create view materialize.public.query01 (u7)    
+2021-05-26T13:38:31.206037Z  INFO coord::catalog: create index materialize.public.query01_primary_idx (u8)    
+2021-05-27T03:12:19.248989Z  INFO materialized: booting server
+materialized v0.7.3 (c186b2446)
+OpenSSL 1.1.1k  25 Mar 2021
+librdkafka v1.6.1
+invoked as: materialized -w 1
+os: Ubuntu 20.04 (focal) [64-bit]
+cpus: 6 logical, 6 physical
+cpu0: Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz 2904MHz
+memory: 12871028KB total, 5002205KB used
+swap: 2147479KB total, 0KB used    
+2021-05-27T03:12:19.353786Z  INFO coord::catalog: create source materialize.public.customers2 (u1)    
+2021-05-27T03:12:19.353864Z  INFO coord::catalog: create index materialize.public.customers2_primary_idx (u2)    
+2021-05-27T03:12:19.362926Z  INFO coord::catalog: create source materialize.public.customers (u5)    
+2021-05-27T03:12:19.363036Z  INFO coord::catalog: create index materialize.public.customers_primary_idx (u6)    
+2021-05-27T03:12:19.363181Z  INFO coord::catalog: create view materialize.public.query01 (u7)    
+2021-05-27T03:12:19.363241Z  INFO coord::catalog: create index materialize.public.query01_primary_idx (u8)    
+2021-05-27T03:12:19.378769Z  INFO coord::timestamp: Starting Timestamping Thread. Frequency: 10 ms.    
+2021-05-27T03:12:19.389349Z  INFO coord::timestamp: Timestamping Source u1 with Real Time Consistency.    
+2021-05-27T03:12:19.398582Z  INFO coord::timestamp: Timestamping Source u5 with Real Time Consistency.    
+2021-05-27T03:12:19.399142Z ERROR librdkafka: librdkafka: FAIL [thrd:localhost:9092/bootstrap]: localhost:9092/bootstrap: Connect to ipv4#127.0.0.1:9092 failed: Connection refused (after 0ms in state CONNECT)    
+2021-05-27T03:12:19.399328Z ERROR librdkafka: librdkafka: FAIL [thrd:localhost:9092/bootstrap]: localhost:9092/bootstrap: Connect to ipv4#127.0.0.1:9092 failed: Connection refused (after 0ms in state CONNECT)    
+2021-05-27T03:12:19.401154Z  INFO materialized::version_check: Unable to build http client to check if materialized is up to date: builder error: unknown proxy scheme    
+2021-05-27T03:12:19.464384Z ERROR librdkafka: librdkafka: FAIL [thrd:localhost:9092/bootstrap]: localhost:9092/bootstrap: Connect to ipv4#127.0.0.1:9092 failed: Connection refused (after 0ms in state CONNECT)    
+2021-05-27T03:12:19.464598Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u1/28) on worker 0    
+2021-05-27T03:12:19.464924Z ERROR rdkafka::client: librdkafka: Global error: BrokerTransportFailure (Local: Broker transport failure): localhost:9092/bootstrap: Connect to ipv4#127.0.0.1:9092 failed: Connection refused (after 0ms in state CONNECT)    
+2021-05-27T03:12:19.464955Z ERROR rdkafka::client: librdkafka: Global error: AllBrokersDown (Local: All broker connections are down): 1/1 brokers are down    
+2021-05-27T03:12:19.467039Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u5/29) on worker 0    
+2021-05-27T03:12:19.965762Z ERROR librdkafka: librdkafka: FAIL [thrd:localhost:9092/bootstrap]: localhost:9092/bootstrap: Connect to ipv4#127.0.0.1:9092 failed: Connection refused (after 0ms in state CONNECT, 1 identical error(s) suppressed)    
+2021-05-27T03:12:19.967450Z ERROR librdkafka: librdkafka: FAIL [thrd:localhost:9092/bootstrap]: localhost:9092/bootstrap: Connect to ipv4#127.0.0.1:9092 failed: Connection refused (after 0ms in state CONNECT)    
+2021-05-27T03:12:20.398659Z ERROR librdkafka: librdkafka: FAIL [thrd:localhost:9092/bootstrap]: localhost:9092/bootstrap: Connect to ipv4#127.0.0.1:9092 failed: Connection refused (after 0ms in state CONNECT, 1 identical error(s) suppressed)    
+2021-05-27T03:12:20.398944Z ERROR librdkafka: librdkafka: FAIL [thrd:localhost:9092/bootstrap]: localhost:9092/bootstrap: Connect to ipv4#127.0.0.1:9092 failed: Connection refused (after 0ms in state CONNECT, 1 identical error(s) suppressed)    
+2021-05-27T03:12:20.465376Z ERROR librdkafka: librdkafka: FAIL [thrd:localhost:9092/bootstrap]: localhost:9092/bootstrap: Connect to ipv4#127.0.0.1:9092 failed: Connection refused (after 0ms in state CONNECT, 1 identical error(s) suppressed)    
+2021-05-27T03:12:20.466063Z ERROR rdkafka::client: librdkafka: Global error: BrokerTransportFailure (Local: Broker transport failure): localhost:9092/bootstrap: Connect to ipv4#127.0.0.1:9092 failed: Connection refused (after 0ms in state CONNECT, 1 identical error(s) suppressed)    
+2021-05-27T03:12:20.470834Z ERROR rdkafka::client: librdkafka: Global error: BrokerTransportFailure (Local: Broker transport failure): localhost:9092/bootstrap: Connect to ipv4#127.0.0.1:9092 failed: Connection refused (after 0ms in state CONNECT)    
+2021-05-27T03:12:20.470862Z ERROR rdkafka::client: librdkafka: Global error: AllBrokersDown (Local: All broker connections are down): 1/1 brokers are down    
+2021-05-27T03:12:20.470873Z ERROR rdkafka::client: librdkafka: Global error: BrokerTransportFailure (Local: Broker transport failure): localhost:9092/bootstrap: Connect to ipv4#127.0.0.1:9092 failed: Connection refused (after 0ms in state CONNECT, 1 identical error(s) suppressed)    
+2021-05-27T07:27:32.326317Z  INFO materialized: booting server
+materialized v0.7.3 (c186b2446)
+OpenSSL 1.1.1k  25 Mar 2021
+librdkafka v1.6.1
+invoked as: materialized -w 1
+os: Ubuntu 20.04 (focal) [64-bit]
+cpus: 6 logical, 6 physical
+cpu0: Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz 2904MHz
+memory: 12871020KB total, 2916272KB used
+swap: 2147479KB total, 0KB used    
+2021-05-27T07:27:32.409642Z  INFO coord::catalog: create source materialize.public.customers2 (u1)    
+2021-05-27T07:27:32.409721Z  INFO coord::catalog: create index materialize.public.customers2_primary_idx (u2)    
+2021-05-27T07:27:32.418446Z  INFO coord::catalog: create source materialize.public.customers (u5)    
+2021-05-27T07:27:32.418573Z  INFO coord::catalog: create index materialize.public.customers_primary_idx (u6)    
+2021-05-27T07:27:32.418722Z  INFO coord::catalog: create view materialize.public.query01 (u7)    
+2021-05-27T07:27:32.418791Z  INFO coord::catalog: create index materialize.public.query01_primary_idx (u8)    
+2021-05-27T07:27:32.427708Z  INFO coord::timestamp: Starting Timestamping Thread. Frequency: 10 ms.    
+2021-05-27T07:27:32.438196Z  INFO coord::timestamp: Timestamping Source u1 with Real Time Consistency.    
+2021-05-27T07:27:32.454912Z  INFO materialized::version_check: Unable to build http client to check if materialized is up to date: builder error: unknown proxy scheme    
+2021-05-27T07:27:32.455122Z  INFO coord::timestamp: Timestamping Source u5 with Real Time Consistency.    
+2021-05-27T07:27:32.465399Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.customers (source u1)    
+2021-05-27T07:27:32.465656Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.customers (source u5)    
+2021-05-27T07:27:32.550232Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u1/28) on worker 0    
+2021-05-27T07:27:32.554626Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u5/29) on worker 0    
+2021-05-27T07:27:33.562982Z  WARN interchange::avro::decode: Record with unrecognized source coordinates in materialize.public.customers_primary_idx. You might be using an unsupported upstream database.    
+2021-05-27T12:58:18.142276Z  INFO materialized: booting server
+materialized v0.7.3 (c186b2446)
+OpenSSL 1.1.1k  25 Mar 2021
+librdkafka v1.6.1
+invoked as: materialized -w 1
+os: Ubuntu 20.04 (focal) [64-bit]
+cpus: 6 logical, 6 physical
+cpu0: Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz 2904MHz
+memory: 12871020KB total, 3594459KB used
+swap: 2147479KB total, 0KB used    
+2021-05-27T12:58:18.233523Z  INFO coord::catalog: create source materialize.public.customers2 (u1)    
+2021-05-27T12:58:18.233603Z  INFO coord::catalog: create index materialize.public.customers2_primary_idx (u2)    
+2021-05-27T12:58:18.242357Z  INFO coord::catalog: create source materialize.public.customers (u5)    
+2021-05-27T12:58:18.242476Z  INFO coord::catalog: create index materialize.public.customers_primary_idx (u6)    
+2021-05-27T12:58:18.242636Z  INFO coord::catalog: create view materialize.public.query01 (u7)    
+2021-05-27T12:58:18.242704Z  INFO coord::catalog: create index materialize.public.query01_primary_idx (u8)    
+2021-05-27T12:58:18.249683Z  INFO coord::timestamp: Starting Timestamping Thread. Frequency: 10 ms.    
+2021-05-27T12:58:18.264705Z  INFO coord::timestamp: Timestamping Source u1 with Real Time Consistency.    
+2021-05-27T12:58:18.285006Z  INFO materialized::version_check: Unable to build http client to check if materialized is up to date: builder error: unknown proxy scheme    
+2021-05-27T12:58:18.285577Z  INFO coord::timestamp: Timestamping Source u5 with Real Time Consistency.    
+2021-05-27T12:58:18.293708Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.customers (source u1)    
+2021-05-27T12:58:18.294093Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.customers (source u5)    
+2021-05-27T12:58:18.372444Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u1/28) on worker 0    
+2021-05-27T12:58:18.385473Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u5/29) on worker 0    
+2021-05-27T12:58:19.393218Z  WARN interchange::avro::decode: Record with unrecognized source coordinates in materialize.public.customers_primary_idx. You might be using an unsupported upstream database.    
+2021-05-28T08:29:19.595723Z  INFO materialized: booting server
+materialized v0.7.3 (c186b2446)
+OpenSSL 1.1.1k  25 Mar 2021
+librdkafka v1.6.1
+invoked as: materialized -w 1
+os: Ubuntu 20.04 (focal) [64-bit]
+cpus: 6 logical, 6 physical
+cpu0: Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz 2903MHz
+memory: 12871020KB total, 4019115KB used
+swap: 2147479KB total, 0KB used    
+2021-05-28T08:29:19.687089Z  INFO coord::catalog: create source materialize.public.customers2 (u1)    
+2021-05-28T08:29:19.687166Z  INFO coord::catalog: create index materialize.public.customers2_primary_idx (u2)    
+2021-05-28T08:29:19.696121Z  INFO coord::catalog: create source materialize.public.customers (u5)    
+2021-05-28T08:29:19.696229Z  INFO coord::catalog: create index materialize.public.customers_primary_idx (u6)    
+2021-05-28T08:29:19.696381Z  INFO coord::catalog: create view materialize.public.query01 (u7)    
+2021-05-28T08:29:19.696443Z  INFO coord::catalog: create index materialize.public.query01_primary_idx (u8)    
+2021-05-28T08:29:19.703148Z  INFO coord::timestamp: Starting Timestamping Thread. Frequency: 10 ms.    
+2021-05-28T08:29:19.713449Z  INFO coord::timestamp: Timestamping Source u1 with Real Time Consistency.    
+2021-05-28T08:29:19.722220Z  INFO materialized::version_check: Unable to build http client to check if materialized is up to date: builder error: unknown proxy scheme    
+2021-05-28T08:29:19.727141Z  INFO coord::timestamp: Timestamping Source u5 with Real Time Consistency.    
+2021-05-28T08:29:19.732286Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.customers (source u5)    
+2021-05-28T08:29:19.732317Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.customers (source u1)    
+2021-05-28T08:29:19.796804Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u1/28) on worker 0    
+2021-05-28T08:29:19.800545Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u5/29) on worker 0    
+2021-05-28T08:29:20.806803Z  WARN interchange::avro::decode: Record with unrecognized source coordinates in materialize.public.customers_primary_idx. You might be using an unsupported upstream database.    
+2021-05-28T08:32:03.441862Z  INFO coord::catalog: create source materialize.public.refresh_data (u9)    
+2021-05-28T08:32:03.441938Z  INFO coord::catalog: create index materialize.public.refresh_data_primary_idx (u10)    
+2021-05-28T08:32:03.444772Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.refresh_data [0] (source u9/31) on worker 0    
+2021-05-28T08:32:03.444879Z  INFO coord::timestamp: Timestamping Source u9 with Real Time Consistency.    
+2021-05-28T08:32:03.447748Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.refresh_data (source u9)    
+2021-05-28T08:32:04.455741Z  WARN interchange::avro::decode: Record with unrecognized source coordinates in materialize.public.refresh_data_primary_idx. You might be using an unsupported upstream database.    
+2021-05-28T09:03:18.293951Z  INFO coord::catalog: create view materialize.public.refresh_query (u11)    
+2021-05-28T09:03:18.293997Z  INFO coord::catalog: create index materialize.public.refresh_query_primary_idx (u12)    
+2021-05-28T09:12:16.915089Z  INFO materialized: booting server
+materialized v0.7.3 (c186b2446)
+OpenSSL 1.1.1k  25 Mar 2021
+librdkafka v1.6.1
+invoked as: materialized -w 1
+os: Ubuntu 20.04 (focal) [64-bit]
+cpus: 6 logical, 6 physical
+cpu0: Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz 2903MHz
+memory: 12871020KB total, 3756156KB used
+swap: 2147479KB total, 0KB used    
+2021-05-28T09:12:16.942955Z  INFO coord::catalog: create source materialize.public.customers2 (u1)    
+2021-05-28T09:12:16.943032Z  INFO coord::catalog: create index materialize.public.customers2_primary_idx (u2)    
+2021-05-28T09:12:16.944597Z  INFO coord::catalog: create source materialize.public.customers (u5)    
+2021-05-28T09:12:16.944689Z  INFO coord::catalog: create index materialize.public.customers_primary_idx (u6)    
+2021-05-28T09:12:16.944823Z  INFO coord::catalog: create view materialize.public.query01 (u7)    
+2021-05-28T09:12:16.944884Z  INFO coord::catalog: create index materialize.public.query01_primary_idx (u8)    
+2021-05-28T09:12:16.946485Z  INFO coord::catalog: create source materialize.public.refresh_data (u9)    
+2021-05-28T09:12:16.946574Z  INFO coord::catalog: create index materialize.public.refresh_data_primary_idx (u10)    
+2021-05-28T09:12:16.946719Z  INFO coord::catalog: create view materialize.public.refresh_query (u11)    
+2021-05-28T09:12:16.946788Z  INFO coord::catalog: create index materialize.public.refresh_query_primary_idx (u12)    
+2021-05-28T09:12:16.947951Z  INFO coord::timestamp: Starting Timestamping Thread. Frequency: 10 ms.    
+2021-05-28T09:12:16.958493Z  INFO materialized::version_check: Unable to build http client to check if materialized is up to date: builder error: unknown proxy scheme    
+2021-05-28T09:12:16.959463Z  INFO coord::timestamp: Timestamping Source u1 with Real Time Consistency.    
+2021-05-28T09:12:16.959963Z  INFO coord::timestamp: Timestamping Source u5 with Real Time Consistency.    
+2021-05-28T09:12:16.960325Z  INFO coord::timestamp: Timestamping Source u9 with Real Time Consistency.    
+2021-05-28T09:12:16.964392Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u1/28) on worker 0    
+2021-05-28T09:12:16.966587Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u5/29) on worker 0    
+2021-05-28T09:12:16.969842Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.refresh_data [0] (source u9/31) on worker 0    
+2021-05-28T09:12:16.974979Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.refresh_data (source u9)    
+2021-05-28T09:12:16.975006Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.customers (source u1)    
+2021-05-28T09:12:16.975105Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.customers (source u5)    
+2021-05-28T09:12:17.475247Z  WARN interchange::avro::decode: Record with unrecognized source coordinates in materialize.public.customers_primary_idx. You might be using an unsupported upstream database.    
+2021-05-28T09:12:17.475565Z  WARN interchange::avro::decode: Record with unrecognized source coordinates in materialize.public.refresh_data_primary_idx. You might be using an unsupported upstream database.    
+2021-05-28T09:19:59.262161Z  INFO coord::catalog: drop index materialize.public.refresh_query_primary_idx (u12)    
+2021-05-28T09:19:59.262197Z  INFO coord::catalog: drop view materialize.public.refresh_query (u11)    
+2021-05-28T09:20:47.460171Z  INFO coord::catalog: create view materialize.public.refresh_query (u13)    
+2021-05-28T09:20:47.460241Z  INFO coord::catalog: create index materialize.public.refresh_query_primary_idx (u14)    
+2021-05-28T12:43:24.816642Z  INFO materialized: booting server
+materialized v0.7.3 (c186b2446)
+OpenSSL 1.1.1k  25 Mar 2021
+librdkafka v1.6.1
+invoked as: materialized -w 1
+os: Ubuntu 20.04 (focal) [64-bit]
+cpus: 6 logical, 6 physical
+cpu0: Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz 2903MHz
+memory: 12871020KB total, 3253405KB used
+swap: 2147479KB total, 0KB used    
+2021-05-28T12:43:24.906955Z  INFO coord::catalog: create source materialize.public.customers2 (u1)    
+2021-05-28T12:43:24.907033Z  INFO coord::catalog: create index materialize.public.customers2_primary_idx (u2)    
+2021-05-28T12:43:24.915834Z  INFO coord::catalog: create source materialize.public.customers (u5)    
+2021-05-28T12:43:24.915939Z  INFO coord::catalog: create index materialize.public.customers_primary_idx (u6)    
+2021-05-28T12:43:24.916082Z  INFO coord::catalog: create view materialize.public.query01 (u7)    
+2021-05-28T12:43:24.916142Z  INFO coord::catalog: create index materialize.public.query01_primary_idx (u8)    
+2021-05-28T12:43:24.917685Z  INFO coord::catalog: create source materialize.public.refresh_data (u9)    
+2021-05-28T12:43:24.917786Z  INFO coord::catalog: create index materialize.public.refresh_data_primary_idx (u10)    
+2021-05-28T12:43:24.917972Z  INFO coord::catalog: create view materialize.public.refresh_query (u13)    
+2021-05-28T12:43:24.918059Z  INFO coord::catalog: create index materialize.public.refresh_query_primary_idx (u14)    
+2021-05-28T12:43:24.925543Z  INFO coord::timestamp: Starting Timestamping Thread. Frequency: 10 ms.    
+2021-05-28T12:43:24.935909Z  INFO coord::timestamp: Timestamping Source u1 with Real Time Consistency.    
+2021-05-28T12:43:24.945725Z  INFO materialized::version_check: Unable to build http client to check if materialized is up to date: builder error: unknown proxy scheme    
+2021-05-28T12:43:24.952574Z  INFO coord::timestamp: Timestamping Source u5 with Real Time Consistency.    
+2021-05-28T12:43:24.952799Z  INFO coord::timestamp: Timestamping Source u9 with Real Time Consistency.    
+2021-05-28T12:43:24.957198Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.refresh_data (source u9)    
+2021-05-28T12:43:24.957857Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.customers (source u1)    
+2021-05-28T12:43:24.958006Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.customers (source u5)    
+2021-05-28T12:43:25.020350Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u1/28) on worker 0    
+2021-05-28T12:43:25.026085Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u5/29) on worker 0    
+2021-05-28T12:43:25.029529Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.refresh_data [0] (source u9/31) on worker 0    
+2021-05-28T12:43:26.031501Z  WARN interchange::avro::decode: Record with unrecognized source coordinates in materialize.public.customers_primary_idx. You might be using an unsupported upstream database.    
+2021-05-28T12:43:26.033297Z  WARN interchange::avro::decode: Record with unrecognized source coordinates in materialize.public.refresh_data_primary_idx. You might be using an unsupported upstream database.    
+2021-05-31T13:00:20.299111Z  INFO materialized: booting server
+materialized v0.7.3 (c186b2446)
+OpenSSL 1.1.1k  25 Mar 2021
+librdkafka v1.6.1
+invoked as: materialized -w 1
+os: Ubuntu 20.04 (focal) [64-bit]
+cpus: 6 logical, 6 physical
+cpu0: Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz 2903MHz
+memory: 12871020KB total, 3411163KB used
+swap: 2147479KB total, 0KB used    
+2021-05-31T13:00:20.390944Z  INFO coord::catalog: create source materialize.public.customers2 (u1)    
+2021-05-31T13:00:20.391020Z  INFO coord::catalog: create index materialize.public.customers2_primary_idx (u2)    
+2021-05-31T13:00:20.399607Z  INFO coord::catalog: create source materialize.public.customers (u5)    
+2021-05-31T13:00:20.399755Z  INFO coord::catalog: create index materialize.public.customers_primary_idx (u6)    
+2021-05-31T13:00:20.399913Z  INFO coord::catalog: create view materialize.public.query01 (u7)    
+2021-05-31T13:00:20.399982Z  INFO coord::catalog: create index materialize.public.query01_primary_idx (u8)    
+2021-05-31T13:00:20.401560Z  INFO coord::catalog: create source materialize.public.refresh_data (u9)    
+2021-05-31T13:00:20.401660Z  INFO coord::catalog: create index materialize.public.refresh_data_primary_idx (u10)    
+2021-05-31T13:00:20.401849Z  INFO coord::catalog: create view materialize.public.refresh_query (u13)    
+2021-05-31T13:00:20.401925Z  INFO coord::catalog: create index materialize.public.refresh_query_primary_idx (u14)    
+2021-05-31T13:00:20.409820Z  INFO coord::timestamp: Starting Timestamping Thread. Frequency: 10 ms.    
+2021-05-31T13:00:20.420718Z  INFO coord::timestamp: Timestamping Source u1 with Real Time Consistency.    
+2021-05-31T13:00:20.433717Z  INFO materialized::version_check: Unable to build http client to check if materialized is up to date: builder error: unknown proxy scheme    
+2021-05-31T13:00:20.435412Z  INFO coord::timestamp: Timestamping Source u5 with Real Time Consistency.    
+2021-05-31T13:00:20.435781Z  INFO coord::timestamp: Timestamping Source u9 with Real Time Consistency.    
+2021-05-31T13:00:20.440226Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.customers (source u5)    
+2021-05-31T13:00:20.440309Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.customers (source u1)    
+2021-05-31T13:00:20.440387Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.refresh_data (source u9)    
+2021-05-31T13:00:20.502720Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u1/28) on worker 0    
+2021-05-31T13:00:20.506358Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u5/29) on worker 0    
+2021-05-31T13:00:20.509900Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.refresh_data [0] (source u9/31) on worker 0    
+2021-05-31T13:00:21.520207Z  WARN interchange::avro::decode: Record with unrecognized source coordinates in materialize.public.customers_primary_idx. You might be using an unsupported upstream database.    
+2021-05-31T13:00:21.521111Z  WARN interchange::avro::decode: Record with unrecognized source coordinates in materialize.public.refresh_data_primary_idx. You might be using an unsupported upstream database.    
+2021-06-17T12:57:52.673021Z  INFO materialized: booting server
+materialized v0.7.3 (c186b2446)
+OpenSSL 1.1.1k  25 Mar 2021
+librdkafka v1.6.1
+invoked as: materialized -w 1
+os: Ubuntu 20.04 (focal) [64-bit]
+cpus: 6 logical, 6 physical
+cpu0: Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz 2904MHz
+memory: 12871032KB total, 12183749KB used
+swap: 2147479KB total, 1345585KB used    
+2021-06-17T12:57:52.766867Z  INFO coord::catalog: create source materialize.public.customers2 (u1)    
+2021-06-17T12:57:52.766947Z  INFO coord::catalog: create index materialize.public.customers2_primary_idx (u2)    
+2021-06-17T12:57:52.776393Z  INFO coord::catalog: create source materialize.public.customers (u5)    
+2021-06-17T12:57:52.776516Z  INFO coord::catalog: create index materialize.public.customers_primary_idx (u6)    
+2021-06-17T12:57:52.776668Z  INFO coord::catalog: create view materialize.public.query01 (u7)    
+2021-06-17T12:57:52.776745Z  INFO coord::catalog: create index materialize.public.query01_primary_idx (u8)    
+2021-06-17T12:57:52.778302Z  INFO coord::catalog: create source materialize.public.refresh_data (u9)    
+2021-06-17T12:57:52.778383Z  INFO coord::catalog: create index materialize.public.refresh_data_primary_idx (u10)    
+2021-06-17T12:57:52.778563Z  INFO coord::catalog: create view materialize.public.refresh_query (u13)    
+2021-06-17T12:57:52.778642Z  INFO coord::catalog: create index materialize.public.refresh_query_primary_idx (u14)    
+2021-06-17T12:57:52.786233Z  INFO coord::timestamp: Starting Timestamping Thread. Frequency: 10 ms.    
+2021-06-17T12:57:52.797175Z  INFO coord::timestamp: Timestamping Source u1 with Real Time Consistency.    
+2021-06-17T12:57:52.806590Z  INFO materialized::version_check: Unable to build http client to check if materialized is up to date: builder error: unknown proxy scheme    
+2021-06-17T12:57:52.828528Z  INFO coord::timestamp: Timestamping Source u5 with Real Time Consistency.    
+2021-06-17T12:57:52.828945Z  INFO coord::timestamp: Timestamping Source u9 with Real Time Consistency.    
+2021-06-17T12:57:52.831216Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.customers (source u1)    
+2021-06-17T12:57:52.835987Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.customers (source u5)    
+2021-06-17T12:57:52.888487Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u1/28) on worker 0    
+2021-06-17T12:57:52.894624Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u5/29) on worker 0    
+2021-06-17T12:57:52.898606Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.refresh_data [0] (source u9/31) on worker 0    
+2021-06-17T12:57:53.911062Z  WARN interchange::avro::decode: Record with unrecognized source coordinates in materialize.public.customers_primary_idx. You might be using an unsupported upstream database.    
+2021-06-17T12:58:22.921194Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:23.907668Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:24.907309Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:25.907715Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:26.908023Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:27.907096Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:28.906788Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:29.906974Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:30.907407Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:31.907386Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:32.909841Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:33.909473Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:34.909334Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:35.912308Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:36.924499Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:37.913195Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:38.912918Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:39.914105Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:40.913320Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:41.913715Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:42.913446Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:43.913462Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:44.913979Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:45.914771Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:46.914324Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:47.915208Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:48.914759Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:49.914676Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:50.915257Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:51.915056Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:52.898733Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:52.914874Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:53.915110Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:54.915249Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:55.916167Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:56.916246Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:57.916359Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:58.919979Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:58:59.916955Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:00.918491Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:01.919493Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:02.929155Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:03.921750Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:04.925938Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:05.924167Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:06.924574Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:07.924829Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:08.925692Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:09.925753Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:10.925640Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:11.925621Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:12.927068Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:13.927045Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:14.926938Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:15.927316Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:16.928557Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:17.927569Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:18.928917Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:19.927431Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:20.927845Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:21.928645Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:22.900395Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:22.932706Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:23.930845Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:24.931411Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:25.931825Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:26.930883Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:27.931412Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:28.931003Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:29.930679Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:30.935220Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:31.936015Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:32.940585Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:33.936470Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:34.937052Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:35.938262Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:36.939586Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:37.939871Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:38.941475Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:39.940034Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:40.940362Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:41.944159Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:42.950331Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:43.946039Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:44.945740Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:45.946119Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:46.948765Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:47.949152Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:48.958209Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:49.958375Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:50.965026Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T12:59:51.968418Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:05:52.388141Z  INFO materialized: booting server
+materialized v0.7.3 (c186b2446)
+OpenSSL 1.1.1k  25 Mar 2021
+librdkafka v1.6.1
+invoked as: materialized -w 1
+os: Ubuntu 20.04 (focal) [64-bit]
+cpus: 6 logical, 6 physical
+cpu0: Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz 2904MHz
+memory: 12871032KB total, 11964597KB used
+swap: 2147479KB total, 2147479KB used    
+2021-06-17T13:05:52.485340Z  INFO coord::catalog: create source materialize.public.customers2 (u1)    
+2021-06-17T13:05:52.485416Z  INFO coord::catalog: create index materialize.public.customers2_primary_idx (u2)    
+2021-06-17T13:05:52.494602Z  INFO coord::catalog: create source materialize.public.customers (u5)    
+2021-06-17T13:05:52.494732Z  INFO coord::catalog: create index materialize.public.customers_primary_idx (u6)    
+2021-06-17T13:05:52.494883Z  INFO coord::catalog: create view materialize.public.query01 (u7)    
+2021-06-17T13:05:52.494945Z  INFO coord::catalog: create index materialize.public.query01_primary_idx (u8)    
+2021-06-17T13:05:52.496457Z  INFO coord::catalog: create source materialize.public.refresh_data (u9)    
+2021-06-17T13:05:52.496546Z  INFO coord::catalog: create index materialize.public.refresh_data_primary_idx (u10)    
+2021-06-17T13:05:52.496746Z  INFO coord::catalog: create view materialize.public.refresh_query (u13)    
+2021-06-17T13:05:52.496826Z  INFO coord::catalog: create index materialize.public.refresh_query_primary_idx (u14)    
+2021-06-17T13:05:52.504380Z  INFO coord::timestamp: Starting Timestamping Thread. Frequency: 10 ms.    
+2021-06-17T13:05:52.515172Z  INFO coord::timestamp: Timestamping Source u1 with Real Time Consistency.    
+2021-06-17T13:05:52.526196Z  INFO materialized::version_check: Unable to build http client to check if materialized is up to date: builder error: unknown proxy scheme    
+2021-06-17T13:05:52.529380Z  INFO coord::timestamp: Timestamping Source u5 with Real Time Consistency.    
+2021-06-17T13:05:52.529654Z  INFO coord::timestamp: Timestamping Source u9 with Real Time Consistency.    
+2021-06-17T13:05:52.540827Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.customers (source u1)    
+2021-06-17T13:05:52.541243Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.refresh_data (source u9)    
+2021-06-17T13:05:52.541349Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.customers (source u5)    
+2021-06-17T13:05:52.600249Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u1/28) on worker 0    
+2021-06-17T13:05:52.604582Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u5/29) on worker 0    
+2021-06-17T13:05:52.607801Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.refresh_data [0] (source u9/31) on worker 0    
+2021-06-17T13:05:53.617071Z  WARN interchange::avro::decode: Record with unrecognized source coordinates in materialize.public.customers_primary_idx. You might be using an unsupported upstream database.    
+2021-06-17T13:05:53.620299Z  WARN interchange::avro::decode: Record with unrecognized source coordinates in materialize.public.refresh_data_primary_idx. You might be using an unsupported upstream database.    
+2021-06-17T13:13:52.317741Z  INFO materialized: booting server
+materialized v0.7.3 (c186b2446)
+OpenSSL 1.1.1k  25 Mar 2021
+librdkafka v1.6.1
+invoked as: materialized -w 1
+os: Ubuntu 20.04 (focal) [64-bit]
+cpus: 6 logical, 6 physical
+cpu0: Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz 2904MHz
+memory: 12871024KB total, 3257772KB used
+swap: 2147479KB total, 0KB used    
+2021-06-17T13:13:52.408609Z  INFO coord::catalog: create source materialize.public.customers2 (u1)    
+2021-06-17T13:13:52.408686Z  INFO coord::catalog: create index materialize.public.customers2_primary_idx (u2)    
+2021-06-17T13:13:52.417562Z  INFO coord::catalog: create source materialize.public.customers (u5)    
+2021-06-17T13:13:52.417682Z  INFO coord::catalog: create index materialize.public.customers_primary_idx (u6)    
+2021-06-17T13:13:52.417844Z  INFO coord::catalog: create view materialize.public.query01 (u7)    
+2021-06-17T13:13:52.417908Z  INFO coord::catalog: create index materialize.public.query01_primary_idx (u8)    
+2021-06-17T13:13:52.419449Z  INFO coord::catalog: create source materialize.public.refresh_data (u9)    
+2021-06-17T13:13:52.419529Z  INFO coord::catalog: create index materialize.public.refresh_data_primary_idx (u10)    
+2021-06-17T13:13:52.419721Z  INFO coord::catalog: create view materialize.public.refresh_query (u13)    
+2021-06-17T13:13:52.419802Z  INFO coord::catalog: create index materialize.public.refresh_query_primary_idx (u14)    
+2021-06-17T13:13:52.427281Z  INFO coord::timestamp: Starting Timestamping Thread. Frequency: 10 ms.    
+2021-06-17T13:13:52.438020Z  INFO coord::timestamp: Timestamping Source u1 with Real Time Consistency.    
+2021-06-17T13:13:52.451611Z  INFO materialized::version_check: Unable to build http client to check if materialized is up to date: builder error: unknown proxy scheme    
+2021-06-17T13:13:52.452163Z  INFO coord::timestamp: Timestamping Source u5 with Real Time Consistency.    
+2021-06-17T13:13:52.452482Z  INFO coord::timestamp: Timestamping Source u9 with Real Time Consistency.    
+2021-06-17T13:13:52.516662Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u1/28) on worker 0    
+2021-06-17T13:13:52.521689Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u5/29) on worker 0    
+2021-06-17T13:13:52.525232Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.refresh_data [0] (source u9/31) on worker 0    
+2021-06-17T13:14:22.536638Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:22.536961Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:22.549116Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:23.537690Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:23.537877Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:23.549262Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:24.542911Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:24.543229Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:24.550269Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:25.536865Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:25.536982Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:25.549610Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:26.539341Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:26.539654Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:26.549678Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:27.538015Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:27.538126Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:27.550149Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:28.537104Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:28.538034Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:28.551547Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:29.538122Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:29.538332Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:29.551134Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:30.540252Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:30.540431Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:30.552196Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:31.538984Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:31.539290Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:31.552302Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:32.538571Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:32.538718Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:32.553080Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:33.547647Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:33.548093Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:33.557678Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:34.543932Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:34.544150Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:34.555667Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:35.544897Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:35.545049Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:35.555771Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:36.546412Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:36.546562Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:36.554731Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:37.544881Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:37.545003Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:37.557318Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:38.546245Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:38.546643Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:38.557610Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:39.547121Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:39.547234Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:39.558251Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:40.547868Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:40.547986Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:40.558249Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:41.554509Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:41.554561Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:41.558327Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:42.549686Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:42.550980Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:42.558564Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:43.553911Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:43.554667Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:43.560959Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:44.554205Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:44.554389Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:44.558380Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:45.555210Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:45.555340Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:45.558043Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:46.554762Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:46.554893Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:46.558559Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:47.554272Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:47.554385Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:47.558440Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:48.562136Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:48.564953Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:48.564992Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:49.559396Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:49.559529Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:49.560230Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:50.559681Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:50.559819Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:50.559921Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:51.560584Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:51.560836Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:51.561596Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:52.517079Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:52.519607Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:52.524989Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:52.560624Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:52.560726Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:52.560801Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:53.560734Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:53.560840Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:53.561628Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:54.562430Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:54.562486Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:54.562502Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:55.562446Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:55.562572Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:55.563849Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:56.565696Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:56.566334Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:56.567716Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:57.564781Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:57.564887Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:57.564963Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:58.564834Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:58.564941Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:58.565017Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:59.565216Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:59.566566Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:14:59.566669Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:00.565634Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:00.565749Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:00.565829Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:01.566958Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:01.567056Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:01.567150Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:02.567154Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:02.567272Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:02.567366Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:03.566746Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:03.566850Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:03.566925Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:04.573409Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:04.573978Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:04.576634Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:05.573285Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:05.573392Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:05.573486Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:06.576881Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:06.576990Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:06.577065Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:07.572175Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:07.572237Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:07.573300Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:08.582880Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:08.582932Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:08.582972Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:09.583464Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:09.583574Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.customers [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:09.583652Z ERROR rdkafka::client: librdkafka: Global error: UnknownTopicOrPartition (Broker: Unknown topic or partition): dbserver1.inventory.refresh_data [0]: topic does not exist (Broker: Unknown topic or partition)    
+2021-06-17T13:15:31.275784Z  INFO materialized: booting server
+materialized v0.7.3 (c186b2446)
+OpenSSL 1.1.1k  25 Mar 2021
+librdkafka v1.6.1
+invoked as: materialized -w 1
+os: Ubuntu 20.04 (focal) [64-bit]
+cpus: 6 logical, 6 physical
+cpu0: Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz 2904MHz
+memory: 12871024KB total, 3381372KB used
+swap: 2147479KB total, 0KB used    
+2021-06-17T13:15:31.304734Z  INFO coord::catalog: create source materialize.public.customers2 (u1)    
+2021-06-17T13:15:31.304811Z  INFO coord::catalog: create index materialize.public.customers2_primary_idx (u2)    
+2021-06-17T13:15:31.306533Z  INFO coord::catalog: create source materialize.public.customers (u5)    
+2021-06-17T13:15:31.306618Z  INFO coord::catalog: create index materialize.public.customers_primary_idx (u6)    
+2021-06-17T13:15:31.306758Z  INFO coord::catalog: create view materialize.public.query01 (u7)    
+2021-06-17T13:15:31.306818Z  INFO coord::catalog: create index materialize.public.query01_primary_idx (u8)    
+2021-06-17T13:15:31.308292Z  INFO coord::catalog: create source materialize.public.refresh_data (u9)    
+2021-06-17T13:15:31.308371Z  INFO coord::catalog: create index materialize.public.refresh_data_primary_idx (u10)    
+2021-06-17T13:15:31.308567Z  INFO coord::catalog: create view materialize.public.refresh_query (u13)    
+2021-06-17T13:15:31.308637Z  INFO coord::catalog: create index materialize.public.refresh_query_primary_idx (u14)    
+2021-06-17T13:15:31.309718Z  INFO coord::timestamp: Starting Timestamping Thread. Frequency: 10 ms.    
+2021-06-17T13:15:31.315836Z  INFO materialized::version_check: Unable to build http client to check if materialized is up to date: builder error: unknown proxy scheme    
+2021-06-17T13:15:31.320440Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u1/28) on worker 0    
+2021-06-17T13:15:31.320433Z  INFO coord::timestamp: Timestamping Source u1 with Real Time Consistency.    
+2021-06-17T13:15:31.320963Z  INFO coord::timestamp: Timestamping Source u5 with Real Time Consistency.    
+2021-06-17T13:15:31.321301Z  INFO coord::timestamp: Timestamping Source u9 with Real Time Consistency.    
+2021-06-17T13:15:31.327331Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.customers (source u1)    
+2021-06-17T13:15:31.327665Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.refresh_data (source u9)    
+2021-06-17T13:15:31.327910Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.customers (source u5)    
+2021-06-17T13:15:31.327949Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u5/29) on worker 0    
+2021-06-17T13:15:31.335261Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.refresh_data [0] (source u9/31) on worker 0    
+2021-06-17T13:15:31.856133Z  WARN interchange::avro::decode: Record with unrecognized source coordinates in materialize.public.refresh_data_primary_idx. You might be using an unsupported upstream database.    
+2021-06-17T13:15:32.333209Z  WARN interchange::avro::decode: Record with unrecognized source coordinates in materialize.public.customers_primary_idx. You might be using an unsupported upstream database.    
+2021-06-27T14:21:57.297052Z  INFO materialized: booting server
+materialized v0.7.3 (c186b2446)
+OpenSSL 1.1.1k  25 Mar 2021
+librdkafka v1.6.1
+invoked as: materialized -w 1
+os: Ubuntu 20.04 (focal) [64-bit]
+cpus: 6 logical, 6 physical
+cpu0: Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz 2903MHz
+memory: 12871036KB total, 5401584KB used
+swap: 2147479KB total, 0KB used    
+2021-06-27T14:21:57.391577Z  INFO coord::catalog: create source materialize.public.customers2 (u1)    
+2021-06-27T14:21:57.391662Z  INFO coord::catalog: create index materialize.public.customers2_primary_idx (u2)    
+2021-06-27T14:21:57.401379Z  INFO coord::catalog: create source materialize.public.customers (u5)    
+2021-06-27T14:21:57.401506Z  INFO coord::catalog: create index materialize.public.customers_primary_idx (u6)    
+2021-06-27T14:21:57.401662Z  INFO coord::catalog: create view materialize.public.query01 (u7)    
+2021-06-27T14:21:57.401726Z  INFO coord::catalog: create index materialize.public.query01_primary_idx (u8)    
+2021-06-27T14:21:57.403243Z  INFO coord::catalog: create source materialize.public.refresh_data (u9)    
+2021-06-27T14:21:57.403331Z  INFO coord::catalog: create index materialize.public.refresh_data_primary_idx (u10)    
+2021-06-27T14:21:57.403513Z  INFO coord::catalog: create view materialize.public.refresh_query (u13)    
+2021-06-27T14:21:57.403593Z  INFO coord::catalog: create index materialize.public.refresh_query_primary_idx (u14)    
+2021-06-27T14:21:57.411342Z  INFO coord::timestamp: Starting Timestamping Thread. Frequency: 10 ms.    
+2021-06-27T14:21:57.421904Z  INFO coord::timestamp: Timestamping Source u1 with Real Time Consistency.    
+2021-06-27T14:21:57.433870Z  INFO coord::timestamp: Timestamping Source u5 with Real Time Consistency.    
+2021-06-27T14:21:57.434319Z  INFO coord::timestamp: Timestamping Source u9 with Real Time Consistency.    
+2021-06-27T14:21:57.435367Z  INFO materialized::version_check: Unable to build http client to check if materialized is up to date: builder error: unknown proxy scheme    
+2021-06-27T14:21:57.439194Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.customers (source u5)    
+2021-06-27T14:21:57.440595Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.customers (source u1)    
+2021-06-27T14:21:57.440727Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.refresh_data (source u9)    
+2021-06-27T14:21:57.504057Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u1/28) on worker 0    
+2021-06-27T14:21:57.507863Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u5/29) on worker 0    
+2021-06-27T14:21:57.511510Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.refresh_data [0] (source u9/31) on worker 0    
+2021-06-27T14:21:58.031981Z  WARN interchange::avro::decode: Record with unrecognized source coordinates in materialize.public.customers_primary_idx. You might be using an unsupported upstream database.    
+2021-06-27T14:21:58.541019Z  WARN interchange::avro::decode: Record with unrecognized source coordinates in materialize.public.refresh_data_primary_idx. You might be using an unsupported upstream database.    
+2021-06-28T03:05:02.828382Z  INFO materialized: booting server
+materialized v0.7.3 (c186b2446)
+OpenSSL 1.1.1k  25 Mar 2021
+librdkafka v1.6.1
+invoked as: materialized -w 1
+os: Ubuntu 20.04 (focal) [64-bit]
+cpus: 6 logical, 6 physical
+cpu0: Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz 2904MHz
+memory: 12871024KB total, 6718129KB used
+swap: 2147479KB total, 0KB used    
+2021-06-28T03:05:02.928534Z  INFO coord::catalog: create source materialize.public.customers2 (u1)    
+2021-06-28T03:05:02.928615Z  INFO coord::catalog: create index materialize.public.customers2_primary_idx (u2)    
+2021-06-28T03:05:02.938081Z  INFO coord::catalog: create source materialize.public.customers (u5)    
+2021-06-28T03:05:02.938191Z  INFO coord::catalog: create index materialize.public.customers_primary_idx (u6)    
+2021-06-28T03:05:02.938343Z  INFO coord::catalog: create view materialize.public.query01 (u7)    
+2021-06-28T03:05:02.938404Z  INFO coord::catalog: create index materialize.public.query01_primary_idx (u8)    
+2021-06-28T03:05:02.939931Z  INFO coord::catalog: create source materialize.public.refresh_data (u9)    
+2021-06-28T03:05:02.940012Z  INFO coord::catalog: create index materialize.public.refresh_data_primary_idx (u10)    
+2021-06-28T03:05:02.940193Z  INFO coord::catalog: create view materialize.public.refresh_query (u13)    
+2021-06-28T03:05:02.940273Z  INFO coord::catalog: create index materialize.public.refresh_query_primary_idx (u14)    
+2021-06-28T03:05:02.947900Z  INFO coord::timestamp: Starting Timestamping Thread. Frequency: 10 ms.    
+2021-06-28T03:05:02.958384Z  INFO coord::timestamp: Timestamping Source u1 with Real Time Consistency.    
+2021-06-28T03:05:02.968523Z  INFO materialized::version_check: Unable to build http client to check if materialized is up to date: builder error: unknown proxy scheme    
+2021-06-28T03:05:02.972238Z  INFO coord::timestamp: Timestamping Source u5 with Real Time Consistency.    
+2021-06-28T03:05:02.972573Z  INFO coord::timestamp: Timestamping Source u9 with Real Time Consistency.    
+2021-06-28T03:05:03.037556Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u1/28) on worker 0    
+2021-06-28T03:05:03.048116Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u5/29) on worker 0    
+2021-06-28T03:05:03.051403Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.refresh_data [0] (source u9/31) on worker 0    
+2021-06-28T03:05:29.241341Z  INFO materialized: booting server
+materialized v0.7.3 (c186b2446)
+OpenSSL 1.1.1k  25 Mar 2021
+librdkafka v1.6.1
+invoked as: materialized -w 1
+os: Ubuntu 20.04 (focal) [64-bit]
+cpus: 6 logical, 6 physical
+cpu0: Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz 2904MHz
+memory: 12871024KB total, 6898591KB used
+swap: 2147479KB total, 0KB used    
+2021-06-28T03:05:29.269540Z  INFO coord::catalog: create source materialize.public.customers2 (u1)    
+2021-06-28T03:05:29.269611Z  INFO coord::catalog: create index materialize.public.customers2_primary_idx (u2)    
+2021-06-28T03:05:29.271301Z  INFO coord::catalog: create source materialize.public.customers (u5)    
+2021-06-28T03:05:29.271384Z  INFO coord::catalog: create index materialize.public.customers_primary_idx (u6)    
+2021-06-28T03:05:29.271520Z  INFO coord::catalog: create view materialize.public.query01 (u7)    
+2021-06-28T03:05:29.271581Z  INFO coord::catalog: create index materialize.public.query01_primary_idx (u8)    
+2021-06-28T03:05:29.273218Z  INFO coord::catalog: create source materialize.public.refresh_data (u9)    
+2021-06-28T03:05:29.273309Z  INFO coord::catalog: create index materialize.public.refresh_data_primary_idx (u10)    
+2021-06-28T03:05:29.273494Z  INFO coord::catalog: create view materialize.public.refresh_query (u13)    
+2021-06-28T03:05:29.273575Z  INFO coord::catalog: create index materialize.public.refresh_query_primary_idx (u14)    
+2021-06-28T03:05:29.280828Z  INFO coord::timestamp: Starting Timestamping Thread. Frequency: 10 ms.    
+2021-06-28T03:05:29.286980Z  INFO materialized::version_check: Unable to build http client to check if materialized is up to date: builder error: unknown proxy scheme    
+2021-06-28T03:05:29.291273Z  INFO coord::timestamp: Timestamping Source u1 with Real Time Consistency.    
+2021-06-28T03:05:29.291922Z  INFO coord::timestamp: Timestamping Source u5 with Real Time Consistency.    
+2021-06-28T03:05:29.292221Z  INFO coord::timestamp: Timestamping Source u9 with Real Time Consistency.    
+2021-06-28T03:05:29.295229Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u1/28) on worker 0    
+2021-06-28T03:05:29.297716Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.customers (source u5)    
+2021-06-28T03:05:29.297905Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.refresh_data (source u9)    
+2021-06-28T03:05:29.300892Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u5/29) on worker 0    
+2021-06-28T03:05:29.306264Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.refresh_data [0] (source u9/31) on worker 0    
+2021-06-28T03:05:29.308466Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.customers (source u1)    
+2021-06-28T03:05:29.818326Z  WARN interchange::avro::decode: Record with unrecognized source coordinates in materialize.public.customers_primary_idx. You might be using an unsupported upstream database.    
+2021-06-28T03:05:30.309717Z  WARN interchange::avro::decode: Record with unrecognized source coordinates in materialize.public.refresh_data_primary_idx. You might be using an unsupported upstream database.    
+2021-06-28T04:40:41.646727Z  INFO materialized: booting server
+materialized v0.7.3 (c186b2446)
+OpenSSL 1.1.1k  25 Mar 2021
+librdkafka v1.6.1
+invoked as: materialized -w 1
+os: Ubuntu 20.04 (focal) [64-bit]
+cpus: 6 logical, 6 physical
+cpu0: Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz 2904MHz
+memory: 12871024KB total, 3733039KB used
+swap: 2147479KB total, 0KB used    
+2021-06-28T04:40:41.735399Z  INFO coord::catalog: create source materialize.public.customers2 (u1)    
+2021-06-28T04:40:41.735480Z  INFO coord::catalog: create index materialize.public.customers2_primary_idx (u2)    
+2021-06-28T04:40:41.746775Z  INFO coord::catalog: create source materialize.public.customers (u5)    
+2021-06-28T04:40:41.746894Z  INFO coord::catalog: create index materialize.public.customers_primary_idx (u6)    
+2021-06-28T04:40:41.747040Z  INFO coord::catalog: create view materialize.public.query01 (u7)    
+2021-06-28T04:40:41.747100Z  INFO coord::catalog: create index materialize.public.query01_primary_idx (u8)    
+2021-06-28T04:40:41.748605Z  INFO coord::catalog: create source materialize.public.refresh_data (u9)    
+2021-06-28T04:40:41.748685Z  INFO coord::catalog: create index materialize.public.refresh_data_primary_idx (u10)    
+2021-06-28T04:40:41.748863Z  INFO coord::catalog: create view materialize.public.refresh_query (u13)    
+2021-06-28T04:40:41.748938Z  INFO coord::catalog: create index materialize.public.refresh_query_primary_idx (u14)    
+2021-06-28T04:40:41.758680Z  INFO coord::timestamp: Starting Timestamping Thread. Frequency: 10 ms.    
+2021-06-28T04:40:41.769276Z  INFO coord::timestamp: Timestamping Source u1 with Real Time Consistency.    
+2021-06-28T04:40:41.787226Z  INFO coord::timestamp: Timestamping Source u5 with Real Time Consistency.    
+2021-06-28T04:40:41.790196Z  INFO coord::timestamp: Timestamping Source u9 with Real Time Consistency.    
+2021-06-28T04:40:41.793901Z  INFO materialized::version_check: Unable to build http client to check if materialized is up to date: builder error: unknown proxy scheme    
+2021-06-28T04:40:41.798585Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.customers (source u5)    
+2021-06-28T04:40:41.800013Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.customers (source u1)    
+2021-06-28T04:40:41.800535Z  INFO coord::timestamp: Discovered 1 new (1 total) kafka partitions for topic dbserver1.inventory.refresh_data (source u9)    
+2021-06-28T04:40:41.888979Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u1/28) on worker 0    
+2021-06-28T04:40:41.898190Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.customers [0] (source u5/29) on worker 0    
+2021-06-28T04:40:41.901769Z  INFO dataflow::source::kafka: Activating Kafka queue for dbserver1.inventory.refresh_data [0] (source u9/31) on worker 0    
+2021-06-28T04:40:42.412475Z  WARN interchange::avro::decode: Record with unrecognized source coordinates in materialize.public.customers_primary_idx. You might be using an unsupported upstream database.    
+2021-06-28T04:40:42.905742Z  WARN interchange::avro::decode: Record with unrecognized source coordinates in materialize.public.refresh_data_primary_idx. You might be using an unsupported upstream database.    

@@ -1,0 +1,23 @@
+|--branding
+|--cypress-base
+|--images #前端需求的相关图片
+|--node_modules #前端的依赖包存放处
+|--spec
+|--stylesheets
+|--src  #主要打包文件夹
+    |--
+	|--
+	|--
+	|--
+	|--
+	
+MixLineBar
+    |--MixLineBar.js
+	|--ReactMixLineBar.js
+	|--TransformProp.js
+	|--MixLineBarChartPlugin.js
+    |--images
+         |--thumbnail.png
+         |--thumbnailLarge.png
+    
+    

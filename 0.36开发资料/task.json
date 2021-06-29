@@ -1,0 +1,51 @@
+{
+  "type": "index_parallel",
+  "spec": {
+    "dataSchema": {
+      "dataSource": "wikipedia",
+      "timestampSpec": {
+        "column": "timestamp",
+        "format": "auto"
+      },
+      "dimensionsSpec": {
+        "dimensions": [
+          { "type": "string", "page" },
+          { "type": "string", "language" },
+          { "type": "long", "name": "userId" }
+        ]
+      },
+      "metricsSpec": [
+        { "type": "count", "name": "count" },
+        { "type": "doubleSum", "name": "bytes_added_sum", "fieldName": "bytes_added" },
+        { "type": "doubleSum", "name": "bytes_deleted_sum", "fieldName": "bytes_deleted" }
+      ],
+      "granularitySpec": {
+        "segmentGranularity": "day",
+        "queryGranularity": "none",
+        "intervals": [
+          "2013-08-31/2013-09-01"
+        ]
+      }
+    },
+    "ioConfig": {
+      "type": "index_parallel",
+      "inputSource": {
+        "type": "local",
+        "baseDir": "examples/indexing/",
+        "filter": "wikipedia_data.json"
+      },
+      "inputFormat": {
+        "type": "json",
+        "flattenSpec": {
+          "useFieldDiscovery": true,
+          "fields": [
+            { "type": "path", "name": "userId", "expr": "$.user.id" }
+          ]
+        }
+      }
+    },
+    "tuningConfig": {
+      "type": "index_parallel"
+    }
+  }
+}

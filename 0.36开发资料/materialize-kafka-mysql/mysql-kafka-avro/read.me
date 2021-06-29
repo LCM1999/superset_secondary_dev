@@ -1,0 +1,24 @@
+# Start the topology as defined in https://debezium.io/docs/tutorial/
+# 每次up以后在关闭时必须执行最后一条语句down不然二次开启kafka与zookeeper的连接会出现问题
+docker-compose -f docker-compose-mysql-avro-connector.yaml up
+
+# Start MySQL connector
+curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @register-mysql-avro.json
+
+# get value schema messages from a Debezium topic 
+# if you want to get key schema ,replace the 'value' by 'key'
+curl -X GET http://localhost:8081/subjects/dbserver1.inventory.customers-value/versions/1 | jq '.schema | fromjson'
+
+#get massages from topic
+docker-compose -f docker-compose-mysql-avro-worker.yaml exec schema-registry /usr/bin/kafka-avro-console-consumer \
+    --bootstrap-server kafka:9092 \
+    --from-beginning \
+    --property print.key=true \
+    --property schema.registry.url=http://schema-registry:8081 \
+    --topic dbserver1.inventory.customers
+
+# Modify records in the database via MySQL client
+docker-compose -f docker-compose-mysql.yaml exec mysql bash -c 'mysql -u $MYSQL_USER -p$MYSQL_PASSWORD inventory'
+
+# Shut down the cluster
+docker-compose -f docker-compose-mysql-avro-connector.yaml down
