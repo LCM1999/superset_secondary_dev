@@ -1,0 +1,191 @@
+{'datasource': '16__table', 
+'viz_type': 'net_graph', 
+'slice_id': 161, 'url_params': {}, 
+'time_range_endpoints': (<TimeRangeEndpoint.INCLUSIVE: 'inclusive'>, 
+<TimeRangeEndpoint.EXCLUSIVE: 'exclusive'>), 
+'granularity_sqla': None, 
+'time_range': 'No filter',
+'node_or_link': 'nodes', 
+'label_choose': [{'expressionType': 'SIMPLE', 'subject': 'nodes_label', 'operator': '==', 'comparator': '香港大公网', 'clause': 'WHERE', 'sqlExpression': None, 'isExtra': False, 'fromFormData': True, 'filterOptionName': 'filter_h1dtwychqxa_y5xdpu0ulwa'}], 
+'number_limit': None}
+
+
+{'nodes': [{'label': '香港大公网', 'distinguish': 'doc_other', 'publish_time': '1602361431', 'channel': '1', 'topic': 'daily', 'Entity_type': 'document', 'id': '424b4eca11f111ebabda0242ac110010', 'title': '\ufeff英格兰回复强阵可再捷', 'type': 'document'}, {'label': '香港大公网', 'distinguish': 'doc_other', 'publish_time': '1602361434', 'channel': '1', 'topic': 'daily', 'Entity_type': 'document', 'id': '42834e0611f111ebabda0242ac110010', 'title': '\ufeff杜锋严格指导 要求完美', 'type': 'document'}, {'label': '香港大公网', 'distinguish': 'doc_other', 'publish_time': '1602361432', 'channel': '1', 'topic': 'daily', 'Entity_type': 'document', 'id': '42a64ae611f111ebabda0242ac110010', 'title': '\ufeff镇廷队两连胜居榜 首', 'type': 'document'}, {'label': '香港大公网', 'distinguish': 'doc_other', 'publish_time': '1602361429', 'channel': '1', 'topic': 'daily', 'Entity_type': 'document', 'id': '42acae9a11f111ebabda0242ac110010', 'title': '\ufeff杰志争标斗愉 园不容失分', 'type': 'document'}, {'label': '香港大公网', 'distinguish': 'doc_other', 'publish_time': '1602361436', 'channel': '1', 'topic': 'daily', 'Entity_type': 'document', 'id': '42b10fc611f111ebabda0242ac110010', 'title': '\ufeff不计 艰辛 喜青苗成长', 'type': 'document'}, {'label': '香港大公网', 'distinguish': 'doc_other', 'publish_time': '1602361435', 'channel': '1', 'topic': 'daily', 'Entity_type': 'document', 'id': '42b46ed211f111ebabda0242ac110010', 'title': '\ufeff减依赖外援 栽培本土后卫「当家」', 'type': 'document'}, {'label': '香港大公网', 'distinguish': 'doc_other', 'publish_time': '1602361428', 'channel': '1', 'topic': 'daily', 'Entity_type': 'document', 'id': '42c61fb011f111ebabda0242ac110010', 'title': '\ufeff港超联赛/艾华顿伊高势分高下', 'type': 'document'}, {'label': '香港大公网', 'distinguish': 'doc_other', 'publish_time': '1602361434', 'channel': '1', 'topic': 'daily', 'Entity_type': 'document', 'id': '42ce070c11f111ebabda0242ac110010', 'title': '\ufeff「海选」新人放眼未来', 'type': 'document'}, {'label': '香港大公网', 'distinguish': 'doc_other', 'publish_time': '1602361430', 'channel': '1', 'topic': 'daily', 'Entity_type': 'document', 'id': '42cfb0fc11f111ebabda0242ac110010', 'title': '\ufeff陈梦全锦赛首封后', 'type': 'document'}, {'label': '香港大公网', 'distinguish': 'doc_other', 'publish_time': '1602361432', 'channel': '1', 'topic': 'daily', 'Entity_type': 'document', 'id': '42daa5ac11f111ebabda0242ac110010', 'title': '\ufeff明年东京马拉松改10月举行', 'type': 'document'}, {'label': '香港大公网', 'distinguish': 'doc_other', 'publish_time': '1602361430', 'channel': '1', 'topic': 'daily', 'Entity_type': 'document', 'id': '42dc7eae11f111ebabda0242ac110010', 'title': '\ufeff复赛表现出众 三冠王在望', 'type': 'document'}], 'links': []}
+
+{
+  "start": {
+"identity": 7878,
+"labels": [
+      "administrative"
+    ],
+"properties": {
+"loaded": "true",
+"img": "./image/Q836.png",
+"Chinese_name": "缅甸",
+"name": "缅甸",
+"id": "Q836",
+"Entity_name": "Myanmar"
+    }
+  },
+
+  "end": {
+"identity": 0,
+"labels": [
+      "contact"
+    ],
+"properties": {
+"Entity_type": "event",
+"id": "a096a094d8239111eb94400242ac110010",
+"event_subtype": "meet",
+"type": "event",
+"publish_time": "1602345600"
+    }
+  },
+
+  "segments": [
+    {
+      "start": {
+"identity": 7878,
+"labels": [
+          "administrative"
+        ],
+"properties": {
+"loaded": "true",
+"img": "./image/Q836.png",
+"Chinese_name": "缅甸",
+"name": "缅甸",
+"id": "Q836",
+"Entity_name": "Myanmar"
+        }
+      },
+
+      "relationship": {
+"identity": 20558,
+"start": 7878,
+"end": 0,
+"type": "包含",
+"properties": {
+"from_type": "entity",
+"to_type": "event",
+"id": "eveent0b567898239111eb94400242ac110010",
+"e_type": "0",
+"ts": "-1"
+        }
+      },
+      
+      "end": {
+"identity": 0,
+"labels": [
+          "contact"
+        ],
+"properties": {
+"Entity_type": "event",
+"id": "a096a094d8239111eb94400242ac110010",
+"event_subtype": "meet",
+"type": "event",
+"publish_time": "1602345600"
+        }
+      }
+    }
+  ],
+  "length": 1.0
+}
+
+def query_obj(self) ->Dict[str,Any]:
+    form_data = self.form_data
+    self.process_query_filters()#清洗表单数据
+    n_o_l = form_data["node_or_link"]
+    label_subject = from_data["label_choose"][0]['subject']
+    label_comp = from_data["label_choose"][0]['comparator']
+
+    is_timeseries = self.is_is_timeseries#图数据库的额必须是非时间序列
+    granularity = form_data.get("granularity") or form_data.get("granularity_sqla")
+    limit = form_data.get("number_limit")#获取限制个数
+    timeseries_limit_metric = form_data.get("timeseries_limit_metric")#form_data中没有就是None
+    row_limit = int(form_data.get("row_limit") or config["ROW_LIMIT"])
+    order_desc = form_data.get("order_desc", True)#默认是true
+
+    since, until = utils.get_since_until(#r_strat和r_end都是设定好的“today”
+        relative_start=relative_start,
+        relative_end=relative_end,
+        time_range=form_data.get("time_range"),
+        since=form_data.get("since"),
+        until=form_data.get("until"),
+    )
+
+    time_shift = ""#默认为空字符串
+    self.time_shift = utils.parse_past_timedelta(time_shift)
+    from_dttm = None if since is None else (since - self.time_shift)
+    to_dttm = None if until is None else (until - self.time_shift)
+    if from_dttm and to_dttm and from_dttm > to_dttm:
+        raise Exception(_("From date cannot be larger than to date"))
+
+    self.from_dttm = from_dttm
+    self.to_dttm = to_dttm
+    extras = {
+        "druid_time_origin": form_data.get("druid_time_origin", ""),
+        "having": form_data.get("having", ""),
+        "having_druid": form_data.get("having_filters", []),
+        "time_grain_sqla": form_data.get("time_grain_sqla"),
+        "time_range_endpoints": form_data.get("time_range_endpoints"),
+        "where": form_data.get("where", ""),
+    }
+
+    if self.datasource.database.database_kind:#s是图数据库返回我们重写的query_obj
+        
+        d = {
+            "granularity": granularity,
+            "from_dttm": from_dttm,
+            "to_dttm": to_dttm,
+            "is_timeseries": is_timeseries,
+            "label_subject": label_subject,
+            "n_o_l": n_o_l,
+            "number_limit": limit,
+            "label_comp": label_comp,
+            "database_kind": self.datasource.database.database_kind,
+            "extras": extras,
+            "timeseries_limit_metric": timeseries_limit_metric,
+            "order_desc": order_desc,
+        }
+    
+    else:#不是图数据库就返回正常的query_obj
+        raise Exception(_("netgrapg的数据源必须是图数据库"))
+
+    #print('这是打印的'+str(metrics))
+    return d
+
+def get_df(self,query_obj:Optional[Dict[str, Any]] = None) ->
+    if not query_obj:
+        query_obj = self.query_obj()#若输入参数丢失则重新获取query字典
+    if not query_obj:
+        return pd.DataFrame()
+    
+    self.error_msg = ""
+
+    timestamp_format = None
+    self.results = self.datasource.query(query_obj) #这个地方要改
+    #改到这个地方了
+    self.query = self.results.query
+    self.status = self.results.status
+    self.error_message = self.results.error_message
+
+    df = self.results.df
+
+
+
+    
+def get_query_cypher_str_extended(self,query_obj: Dict[str, Any]) -> QueryStringExtended:
+    #构建查询的字段
+    label_expected = query['n_o_l']
+    #默认预查询为空列表
+    prequeries = []
+    #构建查询语句
+    cypher = ""
+    match = "MATCH"
+    the_return = "RETURN"
+
+def get_json
+
+
+
+    
