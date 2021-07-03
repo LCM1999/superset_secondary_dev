@@ -79,7 +79,8 @@ export default class EmbedCodeButton extends React.Component {
       '  scrolling="no"\n' +
       `  src="${srcLink}"\n` +
       '>\n' +
-      '</iframe>'
+      '</iframe>',
+      srcLink
     );
   }
 

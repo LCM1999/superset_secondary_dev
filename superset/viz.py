@@ -3113,7 +3113,6 @@ def get_subclasses(cls: Type[BaseViz]) -> Set[Type[BaseViz]]:
         [sc for c in cls.__subclasses__() for sc in get_subclasses(c)]
     )
 
-
 viz_types = {
     o.viz_type: o
     for o in get_subclasses(BaseViz)

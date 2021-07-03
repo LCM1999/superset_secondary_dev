@@ -139,6 +139,12 @@ const ExploreActionButtons = (props: ExploreActionButtonsProps) => {
     disabled: !canDownloadCSV,
   });
 
+  const srcLink = window.location.origin + getExploreLongUrl(latestQueryFormData, 'standalone');
+
+  const doAmplification = async () => {
+    window.open(`${srcLink}`);
+  }
+
   return (
     <div
       className="btn-group results"
@@ -162,6 +168,11 @@ const ExploreActionButtons = (props: ExploreActionButtonsProps) => {
             onClick={doShareEmail}
           />
           <EmbedCodeButton latestQueryFormData={latestQueryFormData} />
+          <ActionButton
+            icon={<Icons.Eye iconSize="l" />}
+            tooltip={t('Press me to enlarge the chart')}
+            onClick={doAmplification}
+          />
           <ActionButton
             icon={<Icons.FileTextOutlined iconSize="m" />}
             text=".JSON"
