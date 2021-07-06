@@ -71,6 +71,28 @@ def destringify(obj: str) -> Any:
     return json.loads(obj)
 
 
+class SupersetResultSet_neo4j:
+    def __init__(
+        self,
+        data: dict,
+        cursor_description: DbapiDescription,
+        db_engine_spec: Type[db_engine_specs.BaseEngineSpec],
+    ):
+        self.data_len = len(data['nodes']) + len(data['links'])
+        self.column = cursor_description
+        self.datas = data
+
+    @property
+    def size(self) -> int:
+        return self.data_len
+
+    @property
+    def columns(self) -> list:
+        return self.column
+
+    def to_pandas_df(self) -> dict:
+        return self.datas
+
 class SupersetResultSet:
     def __init__(  # pylint: disable=too-many-locals,too-many-branches
         self,

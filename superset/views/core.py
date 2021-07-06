@@ -22,6 +22,7 @@ from contextlib import closing
 from datetime import datetime, timedelta
 from typing import Any, Callable, cast, Dict, List, Optional, Union
 from urllib import parse
+from py2neo import *
 
 import backoff
 import humanize
@@ -46,6 +47,7 @@ from sqlalchemy.orm.session import Session
 from sqlalchemy.sql import functions as func
 from werkzeug.urls import Href
 
+import superset.models.core as models
 from superset import (
     app,
     appbuilder,
@@ -435,7 +437,10 @@ class Superset(BaseSupersetView):  # pylint: disable=too-many-public-methods
         return self.json_response({"data": payload["df"].to_dict("records")})
 
     def get_samples(self, viz_obj: BaseViz) -> FlaskResponse:
-        return self.json_response({"data": viz_obj.get_samples()})
+        if viz_obj.datasource.database.database_kind:
+            return self.json_response({"data": viz_obj.get_samples_neo4j()})
+        else:
+            return self.json_response({"data": viz_obj.get_samples()})
 
     @staticmethod
     def send_data_payload_response(viz_obj: BaseViz, payload: Any) -> FlaskResponse:
@@ -1292,6 +1297,12 @@ class Superset(BaseSupersetView):  # pylint: disable=too-many-public-methods
             # form data so if the database already exists and the form was submitted
             # with the safe URI, we assume we should retrieve the decrypted URI to test
             # the connection.
+            if uri.startswith('http'):
+                print("graph database connection")
+                database_kind = True;
+            else:
+                database_kind = False;
+
             if db_name:
                 existing_database = (
                     db.session.query(Database)
@@ -1317,11 +1328,17 @@ class Superset(BaseSupersetView):  # pylint: disable=too-many-public-methods
             )
             engine = database.get_sqla_engine(user_name=username)
 
-            with closing(engine.raw_connection()) as conn:
-                if engine.dialect.do_ping(conn):
-                    return json_success('"OK"')
+            if database_kind:
+                a = Node("Person", name = "Bob")
+                print(engine.default_graph.exists(a))
+                return json_success('"OK"')
+                del engine
+            else:
+                with closing(engine.raw_connection()) as conn:
+                    if engine.dialect.do_ping(conn):
+                        return json_success('"OK"')
 
-                raise DBAPIError(None, None, None)
+                    raise DBAPIError(None, None, None)
         except CertificateException as ex:
             logger.info("Certificate exception")
             return json_error_response(ex.message)
@@ -2597,6 +2614,7 @@ class Superset(BaseSupersetView):  # pylint: disable=too-many-public-methods
         user_id: int = g.user.get_id() if g.user else None
 
         session = db.session()
+        # mydb = session.query(models.Database).get(database_id)
 
         # check to see if this query is already running
         query = (
@@ -2618,6 +2636,7 @@ class Superset(BaseSupersetView):  # pylint: disable=too-many-public-methods
             return json_success(payload)
 
         mydb = session.query(Database).get(database_id)
+        print('The Database: ', mydb)
         if not mydb:
             raise SupersetGenericErrorException(
                 _(

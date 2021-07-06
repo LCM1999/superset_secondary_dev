@@ -84,7 +84,13 @@ def get_engine_specs() -> Dict[str, Type[BaseEngineSpec]]:
 
         for name in names:
             engine_specs_map[name] = engine_spec
-
+    """
+    print(
+        "Scan the 'db_engine_specs' and get all engine_specs, " +
+        "this should contains neo4j",
+        engine_specs_map)
+    get right!    
+    """
     return engine_specs_map
 
 
@@ -124,8 +130,11 @@ def get_available_engine_specs() -> Dict[Type[BaseEngineSpec], Set[str]]:
             drivers[dialect.name].add(getattr(dialect, "driver", dialect.name))
 
     engine_specs = get_engine_specs()
-    return {
+    result = {
         engine_specs[backend]: drivers
         for backend, drivers in drivers.items()
         if backend in engine_specs
     }
+
+    result[engine_specs['http']] = {'py2neo'}
+    return result

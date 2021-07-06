@@ -17,6 +17,7 @@
 import logging
 from contextlib import closing
 from typing import Any, Dict, Optional
+from py2neo import *
 
 from flask_appbuilder.security.sqla.models import User
 from flask_babel import gettext as _
@@ -47,6 +48,7 @@ class TestConnectionDatabaseCommand(BaseCommand):
     def run(self) -> None:
         self.validate()
         uri = self._properties.get("sqlalchemy_uri", "")
+        # print("Let's see what is the model: ", self._model) (--> None)
         if self._model and uri == self._model.safe_sqlalchemy_uri():
             uri = self._model.sqlalchemy_uri_decrypted
 
@@ -60,6 +62,12 @@ class TestConnectionDatabaseCommand(BaseCommand):
             "database": url.database,
         }
 
+        if uri.startswith('http'):
+            print("graph database connection")
+            database_kind = True;
+        else:
+            database_kind = False;
+
         try:
             database = DatabaseDAO.build_db_for_connection_test(
                 server_cert=self._properties.get("server_cert", ""),
@@ -72,13 +80,19 @@ class TestConnectionDatabaseCommand(BaseCommand):
             database.db_engine_spec.mutate_db_for_connection_test(database)
             username = self._actor.username if self._actor is not None else None
             engine = database.get_sqla_engine(user_name=username)
-            with closing(engine.raw_connection()) as conn:
-                try:
-                    alive = engine.dialect.do_ping(conn)
-                except Exception:  # pylint: disable=broad-except
-                    alive = False
-                if not alive:
-                    raise DBAPIError(None, None, None)
+            if database_kind:
+                a = Node("Person", name="Bob")
+                print(engine.default_graph.exists(a))
+                alive = True
+                del engine
+            else:
+                with closing(engine.raw_connection()) as conn:
+                    try:
+                        alive = engine.dialect.do_ping(conn)
+                    except Exception:  # pylint: disable=broad-except
+                        alive = False
+                    if not alive:
+                        raise DBAPIError(None, None, None)
 
             # Log succesful connection test with engine
             event_logger.log_with_context(
@@ -120,5 +134,6 @@ class TestConnectionDatabaseCommand(BaseCommand):
 
     def validate(self) -> None:
         database_name = self._properties.get("database_name")
+        # print("Lets see the 'database_name' here: ", database_name)
         if database_name is not None:
             self._model = DatabaseDAO.get_database_by_name(database_name)

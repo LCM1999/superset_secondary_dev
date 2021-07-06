@@ -20,6 +20,8 @@ import enum
 import json
 import logging
 import textwrap
+# import py2neo here
+from py2neo import *
 from contextlib import closing
 from copy import deepcopy
 from datetime import datetime
@@ -327,7 +329,7 @@ class Database(
         nullpool: bool = True,
         user_name: Optional[str] = None,
         source: Optional[utils.QuerySource] = None,
-    ) -> Engine:
+    ) -> Engine or Graph:
         extra = self.get_extra()
         sqlalchemy_url = make_url(self.sqlalchemy_uri_decrypted)
         self.db_engine_spec.adjust_database_uri(sqlalchemy_url, schema)
@@ -369,8 +371,13 @@ class Database(
             sqlalchemy_url, params = DB_CONNECTION_MUTATOR(
                 sqlalchemy_url, params, effective_username, security_manager, source
             )
-
-        return create_engine(sqlalchemy_url, **params)
+        """ import py2neo for this """
+        print(str(sqlalchemy_url))
+        if self.database_kind:
+            engine = GraphService(str(sqlalchemy_url))
+            return engine
+        else:
+            return create_engine(sqlalchemy_url, **params)
 
     def get_reserved_words(self) -> Set[str]:
         return self.get_dialect().preparer.reserved_words
@@ -472,6 +479,20 @@ class Database(
     def inspector(self) -> Inspector:
         engine = self.get_sqla_engine()
         return sqla.inspect(engine)
+
+    """
+    Here is the Critical "database_kind" for import neo4j,
+    This func is annotated by "@property", so it could seems like a 
+    member attribute where it be used.
+    """
+    @property
+    def database_kind(self) -> bool:
+        if str(self.sqlalchemy_uri).startswith('http'):
+            print("This is graph database.")
+            database_kind = True
+        else:
+            database_kind = False
+        return database_kind
 
     @cache_util.memoized_func(
         key=lambda self, *args, **kwargs: f"db:{self.id}:schema:None:table_list",
@@ -586,7 +607,7 @@ class Database(
         :return: schema list
         """
         return self.db_engine_spec.get_schema_names(self.inspector)
-
+    # TODO()
     @property
     def db_engine_spec(self) -> Type[db_engine_specs.BaseEngineSpec]:
         return self.get_db_engine_spec_for_backend(self.backend)
@@ -626,13 +647,16 @@ class Database(
     def get_table(self, table_name: str, schema: Optional[str] = None) -> Table:
         extra = self.get_extra()
         meta = MetaData(**extra.get("metadata_params", {}))
-        return Table(
-            table_name,
-            meta,
-            schema=schema or None,
-            autoload=True,
-            autoload_with=self.get_sqla_engine(),
-        )
+        if self.database_kind:
+            return self.get_sqla_engine()
+        else:
+            return Table(
+                table_name,
+                meta,
+                schema=schema or None,
+                autoload=True,
+                autoload_with=self.get_sqla_engine(),
+            )
 
     def get_table_comment(
         self, table_name: str, schema: Optional[str] = None

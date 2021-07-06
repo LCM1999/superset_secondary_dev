@@ -53,3 +53,15 @@ def df_to_records(dframe: pd.DataFrame) -> List[Dict[str, Any]]:
         dict(zip(columns, map(_convert_big_integers, row)))
         for row in zip(*[dframe[col] for col in columns])
     )
+
+
+def list_to_dict(df: dict) -> Dict[str, list]:
+    for i in range(0, len(df['nodes'])):
+        if df['nodes'][i] == {}:
+            del df['nodes'][i]
+    for i in range(0, len(df['links'])):
+        if df['links'][i] == {}:
+            del df['links'][i]
+    data: Dict[str, list] = df
+    print('Remove empty node-link relationship: ', data)
+    return data

@@ -33,14 +33,14 @@ from sqlalchemy.orm import Session
 from werkzeug.local import LocalProxy
 
 from superset import app, results_backend, results_backend_use_msgpack, security_manager
-from superset.dataframe import df_to_records
+from superset.dataframe import df_to_records, list_to_dict
 from superset.db_engine_specs import BaseEngineSpec
 from superset.errors import ErrorLevel, SupersetError, SupersetErrorType
 from superset.exceptions import SupersetErrorException, SupersetErrorsException
 from superset.extensions import celery_app
 from superset.models.core import Database
 from superset.models.sql_lab import LimitingFactor, Query
-from superset.result_set import SupersetResultSet
+from superset.result_set import SupersetResultSet, SupersetResultSet_neo4j
 from superset.sql_parse import CtasMethod, ParsedQuery
 from superset.utils.celery import session_scope
 from superset.utils.core import (
@@ -297,6 +297,99 @@ def execute_sql_statement(
     return SupersetResultSet(data, cursor_description, db_engine_spec)
 
 
+def execute_cypher_statement(
+    sql_statement: str,
+    query: Query,
+    user_name: Optional[str],
+    session: Session,
+    cursor: Any,
+    log_params: Optional[Dict[str, Any]],
+    apply_ctas: bool = False,
+) -> SupersetResultSet:
+    """ Execute a single Cypher statement """
+    database = query.database,
+    db_engine_spec = database.db_engine_spec
+    parsed_query = ParsedQuery(sql_statement)
+    cypher = parsed_query.stripped()
+    print('Cypher tree in "execute_cypher_statement": ', cypher)
+    increased_limit = None if query.limit is None else query.limit + 1
+
+    if not sql_statement.startswith('MATCH'):
+        raise SupersetErrorException(
+            SupersetError(
+                message=__("Only MATCH statements are allowed against this database."),
+                error_type=SupersetErrorType.DML_NOT_ALLOWED_ERROR,
+                level=ErrorLevel.ERROR,
+            )
+        )
+    if apply_ctas:
+        if not query.tmp_table_name:
+            start_dttm: datetime.fromtimestamp(query.start_time)
+            query.tmp_table_name = "tmp_{}_table_{}".format(
+                query.user_id, start_dttm.strftime("%Y_%m_%d_%H_%M_%S")
+            )
+            sql = parsed_query.as_create_table(
+                query.tmp_table_name,
+                schema_name=query.tmp_schema_name,
+                method=query.ctas_method,
+            )
+            query.select_as_cta_used = True
+    if SQL_QUERY_MUTATOR:
+        sql = SQL_QUERY_MUTATOR(sql, user_name, security_manager, database)
+
+    try:
+        query.executed_sql = sql
+        if log_query:
+            log_query(
+                query.database.sqlalchemy_uri,
+                query.executed_sql,
+                query.schema,
+                user_name,
+                __name__,
+                security_manager,
+                log_params,
+            )
+        with stats_timing("sqllab.query.time_executing_query", stats_logger):
+            logger.debug("Query %d: Running query: %s", query.id, sql)
+            db_engine_spec.execute(cursor, sql, async_=True)
+            logger.debug("Query %d: Handling cursor", query.id)
+            db_engine_spec.handle_cursor(cursor, query, session)
+
+        with stats_timing("sqllab.query.time_fetching_results", stats_logger):
+            logger.debug(
+                "Query %d: Fetching data for query object: %s",
+                query.id,
+                str(query.to_dict()),
+            )
+            data = db_engine_spec.fetch_data(cursor, increased_limit)
+            if query.limit is None or len(data) <= query.limit:
+                query.limiting_factor = LimitingFactor.NOT_LIMITED
+            else:
+                # return 1 row less than increased_query
+                data = data[:-1]
+    except SoftTimeLimitExceeded as ex:
+        logger.warning("Query %d: Time limit exceeded", query.id)
+        logger.debug("Query %d: %s", query.id, ex)
+        raise SupersetErrorException(
+            SupersetError(
+                message=__(
+                    f"The query was killed after {SQLLAB_TIMEOUT} seconds. It might "
+                    "be too complex, or the database might be under heavy load."
+                ),
+                error_type=SupersetErrorType.SQLLAB_TIMEOUT_ERROR,
+                level=ErrorLevel.ERROR,
+            )
+        )
+    except Exception as ex:
+        logger.error("Query %d: %s", query.id, type(ex), exc_info=True)
+        logger.debug("Query %d: %s", query.id, ex)
+        raise SqlLabException(db_engine_spec.extract_error_message(ex))
+
+    logger.debug("Query %d: Fetching cursor description", query.id)
+    cursor_description = (['nodes', ], ['links', ])
+    return SupersetResultSet_neo4j(data, cursor_description, db_engine_spec)
+
+
 def _serialize_payload(
     payload: Dict[Any, Any], use_msgpack: Optional[bool] = False
 ) -> Union[bytes, str]:
@@ -332,7 +425,12 @@ def _serialize_and_expand_data(
         all_columns, expanded_columns = (selected_columns, [])
     else:
         df = result_set.to_pandas_df()
-        data = df_to_records(df) or []
+        print(df)
+        if db_engine_spec.engine == 'http':
+            print('Is graph database and process data.')
+            data = list_to_dict(df) or {}
+        else:
+            data = df_to_records(df) or []
 
         if expand_data:
             all_columns, data, expanded_columns = db_engine_spec.expand_data(
@@ -366,6 +464,7 @@ def execute_sql_statements(  # pylint: disable=too-many-arguments, too-many-loca
     database = query.database
     db_engine_spec = database.db_engine_spec
     db_engine_spec.patch()
+    is_neo4j = False
 
     if database.allow_run_async and not results_backend:
         raise SupersetErrorException(
@@ -435,51 +534,75 @@ def execute_sql_statements(  # pylint: disable=too-many-arguments, too-many-loca
     )
     # Sharing a single connection and cursor across the
     # execution of all statements (if many)
-    with closing(engine.raw_connection()) as conn:
-        # closing the connection closes the cursor as well
-        cursor = conn.cursor()
+    if database.database_name == 'test_neo4j':
+        is_neo4j = True
+        print('Neo4j connect test progress.')
+        cursor = engine.default_graph
         statement_count = len(statements)
         for i, statement in enumerate(statements):
-            # Check if stopped
             query = get_query(query_id, session)
             if query.status == QueryStatus.STOPPED:
                 return None
-
-            # For CTAS we create the table only on the last statement
-            apply_ctas = query.select_as_cta and (
-                query.ctas_method == CtasMethod.VIEW
-                or (query.ctas_method == CtasMethod.TABLE and i == len(statements) - 1)
-            )
-
-            # Run statement
             msg = f"Running statement {i+1} out of {statement_count}"
             logger.info("Query %s: %s", str(query_id), msg)
             query.set_extra_json_key("progress", msg)
-            session.commit()
             try:
-                result_set = execute_sql_statement(
-                    statement,
-                    query,
-                    user_name,
-                    session,
-                    cursor,
-                    log_params,
-                    apply_ctas,
+                result_set = execute_cypher_statement(
+                    statement, query, user_name, session, cursor, log_params
                 )
-            except Exception as ex:  # pylint: disable=broad-except
-                msg = str(ex)
-                prefix_message = (
-                    f"[Statement {i+1} out of {statement_count}]"
-                    if statement_count > 1
-                    else ""
-                )
-                payload = handle_query_error(
-                    ex, query, session, payload, prefix_message
-                )
+            except Exception as e:
+                msg = str(e)
+                if statement_count > 1:
+                    msg = f"[Statement {i+1} out of {statement_count}]" + msg
+                payload = handle_query_error(msg, query, session, payload)
                 return payload
+    else:
+        is_neo4j = False
+        with closing(engine.raw_connection()) as conn:
+            # closing the connection closes the cursor as well
+            cursor = conn.cursor()
+            statement_count = len(statements)
+            for i, statement in enumerate(statements):
+                # Check if stopped
+                query = get_query(query_id, session)
+                if query.status == QueryStatus.STOPPED:
+                    return None
 
-        # Commit the connection so CTA queries will create the table.
-        conn.commit()
+                # For CTAS we create the table only on the last statement
+                apply_ctas = query.select_as_cta and (
+                    query.ctas_method == CtasMethod.VIEW
+                    or (query.ctas_method == CtasMethod.TABLE and i == len(statements) - 1)
+                )
+
+                # Run statement
+                msg = f"Running statement {i+1} out of {statement_count}"
+                logger.info("Query %s: %s", str(query_id), msg)
+                query.set_extra_json_key("progress", msg)
+                session.commit()
+                try:
+                    result_set = execute_sql_statement(
+                        statement,
+                        query,
+                        user_name,
+                        session,
+                        cursor,
+                        log_params,
+                        apply_ctas,
+                    )
+                except Exception as ex:  # pylint: disable=broad-except
+                    msg = str(ex)
+                    prefix_message = (
+                        f"[Statement {i+1} out of {statement_count}]"
+                        if statement_count > 1
+                        else ""
+                    )
+                    payload = handle_query_error(
+                        ex, query, session, payload, prefix_message
+                    )
+                    return payload
+
+            # Commit the connection so CTA queries will create the table.
+            conn.commit()
 
     # Success, updating the query entry in database
     query.rows = result_set.size
