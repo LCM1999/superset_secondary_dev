@@ -257,6 +257,12 @@ class BaseViz:
         df = self.get_df_payload(query_obj)["df"]  # leverage caching logic
         return df.to_dict(orient="records")
 
+    """
+    One of changes @Li_Xvyuan made to import  neo4j.  
+    """
+    def get_samples_neo4j(self):
+        return [{'neo4j':'Previewing all graph databases is not allowed.'}]
+
     def get_df(self, query_obj: Optional[QueryObjectDict] = None) -> pd.DataFrame:
         """Returns a pandas dataframe based on the query object"""
         if not query_obj:
@@ -3106,6 +3112,8 @@ class PartitionViz(NVD3TimeSeriesViz):
         else:
             levels = self.levels_for("agg_sum", [DTTM_ALIAS] + groups, df)
         return self.nest_values(levels)
+
+
 
 
 def get_subclasses(cls: Type[BaseViz]) -> Set[Type[BaseViz]]:

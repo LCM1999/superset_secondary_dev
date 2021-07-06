@@ -917,7 +917,9 @@ class DatabaseRestApi(BaseSupersetModelRestApi):
               $ref: '#/components/responses/500'
         """
         preferred_databases: List[str] = app.config.get("PREFERRED_DATABASES", [])
+        #print(preferred_databases)
         available_databases = []
+        #print(get_available_engine_specs().items())
         for engine_spec, drivers in get_available_engine_specs().items():
             payload: Dict[str, Any] = {
                 "name": engine_spec.engine_name,
@@ -943,7 +945,7 @@ class DatabaseRestApi(BaseSupersetModelRestApi):
                 ] = engine_spec.sqlalchemy_uri_placeholder  # type: ignore
 
             available_databases.append(payload)
-
+        print("Payload Dict: ", payload)
         # sort preferred first
         response = sorted(
             (payload for payload in available_databases if payload["preferred"]),
