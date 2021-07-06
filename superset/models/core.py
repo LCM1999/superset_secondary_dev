@@ -478,7 +478,10 @@ class Database(
     @property
     def inspector(self) -> Inspector:
         engine = self.get_sqla_engine()
-        return sqla.inspect(engine)
+        if self.database_kind:
+            return engine
+        else:
+            return sqla.inspect(engine)
 
     """
     Here is the Critical "database_kind" for import neo4j,
@@ -607,7 +610,7 @@ class Database(
         :return: schema list
         """
         return self.db_engine_spec.get_schema_names(self.inspector)
-    # TODO()
+
     @property
     def db_engine_spec(self) -> Type[db_engine_specs.BaseEngineSpec]:
         return self.get_db_engine_spec_for_backend(self.backend)
