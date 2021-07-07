@@ -2528,6 +2528,7 @@ class Superset(BaseSupersetView):  # pylint: disable=too-many-public-methods
             query_id = query.id
             with utils.timeout(seconds=timeout, error_message=timeout_msg):
                 # pylint: disable=no-value-for-parameter
+                #print("Should be here: ", rendered_query)
                 data = sql_lab.get_sql_results(
                     query.id,
                     rendered_query,
@@ -2539,7 +2540,7 @@ class Superset(BaseSupersetView):  # pylint: disable=too-many-public-methods
                     expand_data=expand_data,
                     log_params=log_params,
                 )
-
+                print("Check STATUS: ", data.get("status"))
             # Update saved query if needed
             QueryDAO.update_saved_query_exec_info(query_id)
 
@@ -2727,7 +2728,7 @@ class Superset(BaseSupersetView):  # pylint: disable=too-many-public-methods
                 ),
                 error=SupersetErrorType.INVALID_TEMPLATE_PARAMS_ERROR,
             ) from ex
-
+        print("What is rendered query: ", rendered_query)
         if is_feature_enabled("ENABLE_TEMPLATE_PROCESSING"):
             # pylint: disable=protected-access
             ast = template_processor._env.parse(rendered_query)
@@ -2763,7 +2764,6 @@ class Superset(BaseSupersetView):  # pylint: disable=too-many-public-methods
             else:  # limits[0] == limits[1]
                 query.limiting_factor = LimitingFactor.QUERY_AND_DROPDOWN
             query.limit = min(lim for lim in limits if lim is not None)
-
         # Flag for whether or not to expand data
         # (feature that will expand Presto row objects and arrays)
         expand_data: bool = cast(

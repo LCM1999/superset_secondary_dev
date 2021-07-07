@@ -1,7 +1,7 @@
 from superset.db_engine_specs import BaseEngineSpec
 from typing import List, Optional, Type, Any, Dict
 from py2neo.cypher import Cursor
-from py2neo import GraphService
+from py2neo import *
 
 
 class Neo4jEngineSpec(BaseEngineSpec):
