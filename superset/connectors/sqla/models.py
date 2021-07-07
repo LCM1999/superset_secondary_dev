@@ -811,6 +811,7 @@ class SqlaTable(  # pylint: disable=too-many-public-methods,too-many-instance-at
 
     def get_query_str_extended(self, query_obj: QueryObjectDict) -> QueryStringExtended:
         sqlaq = self.get_sqla_query(**query_obj)
+        print("What is sqlaq: ", sqlaq)
         sql = self.database.compile_sqla_query(sqlaq.sqla_query)
         sql = sqlparse.format(sql, reindent=True)
         sql = self.mutate_query_from_config(sql)

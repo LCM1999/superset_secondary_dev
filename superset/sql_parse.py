@@ -101,15 +101,21 @@ class Table:  # pylint: disable=too-few-public-methods
 
 
 class ParsedQuery:
-    def __init__(self, sql_statement: str, strip_comments: bool = False):
+    def __init__(
+        self,
+        sql_statement: str,
+        strip_comments: bool = False,
+        isCypher: bool = False
+    ):
         if strip_comments:
             sql_statement = sqlparse.format(sql_statement, strip_comments=True)
+        elif isCypher:
+            sql_statement = sql_statement[sql_statement.find('MATCH'):]
 
         self.sql: str = sql_statement
         self._tables: Set[Table] = set()
         self._alias_names: Set[str] = set()
         self._limit: Optional[int] = None
-
         logger.debug("Parsing with sqlparse statement: %s", self.sql)
         self._parsed = sqlparse.parse(self.stripped())
         for statement in self._parsed:

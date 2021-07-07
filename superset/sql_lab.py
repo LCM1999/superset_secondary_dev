@@ -167,7 +167,6 @@ def get_sql_results(  # pylint: disable=too-many-arguments
 ) -> Optional[Dict[str, Any]]:
     """Executes the sql query returns the results."""
     with session_scope(not ctask.request.called_directly) as session:
-
         try:
             return execute_sql_statements(
                 query_id,
@@ -305,9 +304,10 @@ def execute_cypher_statement(
     cursor: Any,
     log_params: Optional[Dict[str, Any]],
     apply_ctas: bool = False,
-) -> SupersetResultSet:
+) -> SupersetResultSet_neo4j:
     """ Execute a single Cypher statement """
     database = query.database,
+    database = database[0]
     db_engine_spec = database.db_engine_spec
     parsed_query = ParsedQuery(sql_statement)
     cypher = parsed_query.stripped()
@@ -323,22 +323,33 @@ def execute_cypher_statement(
             )
         )
     if apply_ctas:
+        if not parsed_query.is_select():
+            raise SqlLabException(
+                SupersetError(
+                    message=__(
+                        "Only MATCH statements can be used with the CREATE TABLE."),
+                    error_type=SupersetErrorType.DML_NOT_ALLOWED_ERROR,
+                    level=ErrorLevel.ERROR,
+                )
+            )
         if not query.tmp_table_name:
             start_dttm: datetime.fromtimestamp(query.start_time)
             query.tmp_table_name = "tmp_{}_table_{}".format(
                 query.user_id, start_dttm.strftime("%Y_%m_%d_%H_%M_%S")
             )
-            sql = parsed_query.as_create_table(
+            cypher = parsed_query.as_create_table(
                 query.tmp_table_name,
                 schema_name=query.tmp_schema_name,
                 method=query.ctas_method,
             )
             query.select_as_cta_used = True
+    print("This should be None: ", SQL_QUERY_MUTATOR)
+    print(cypher)
     if SQL_QUERY_MUTATOR:
-        sql = SQL_QUERY_MUTATOR(sql, user_name, security_manager, database)
-
+        cypher = SQL_QUERY_MUTATOR(cypher, user_name, security_manager, database)
+    print(cypher)
     try:
-        query.executed_sql = sql
+        query.executed_sql = cypher
         if log_query:
             log_query(
                 query.database.sqlalchemy_uri,
@@ -350,8 +361,8 @@ def execute_cypher_statement(
                 log_params,
             )
         with stats_timing("sqllab.query.time_executing_query", stats_logger):
-            logger.debug("Query %d: Running query: %s", query.id, sql)
-            db_engine_spec.execute(cursor, sql, async_=True)
+            logger.debug("Query %d: Running query: %s", query.id, cypher)
+            db_engine_spec.execute(cursor, cypher, async_=True)
             logger.debug("Query %d: Handling cursor", query.id)
             db_engine_spec.handle_cursor(cursor, query, session)
 
@@ -361,7 +372,7 @@ def execute_cypher_statement(
                 query.id,
                 str(query.to_dict()),
             )
-            data = db_engine_spec.fetch_data(cursor, increased_limit)
+            data = db_engine_spec.fetch_data()
             if query.limit is None or len(data) <= query.limit:
                 query.limiting_factor = LimitingFactor.NOT_LIMITED
             else:
@@ -476,7 +487,11 @@ def execute_sql_statements(  # pylint: disable=too-many-arguments, too-many-loca
         )
 
     # Breaking down into multiple statements
-    parsed_query = ParsedQuery(rendered_query, strip_comments=True)
+    if rendered_query.find('-->'):
+        parsed_query = ParsedQuery(rendered_query, isCypher=True)
+    else:
+        parsed_query = ParsedQuery(rendered_query, strip_comments=True)
+    print("Parsed Cypher is: ", parsed_query.sql)
     if not db_engine_spec.run_multiple_statements_as_one:
         statements = parsed_query.get_statements()
         logger.info(
@@ -485,7 +500,7 @@ def execute_sql_statements(  # pylint: disable=too-many-arguments, too-many-loca
     else:
         statements = [rendered_query]
         logger.info("Query %s: Executing query as a single statement", str(query_id))
-
+    print("Statements: ", statements)
     logger.info("Query %s: Set query to 'running'", str(query_id))
     query.status = QueryStatus.RUNNING
     query.start_running_time = now_as_float()
@@ -532,9 +547,11 @@ def execute_sql_statements(  # pylint: disable=too-many-arguments, too-many-loca
         user_name=user_name,
         source=QuerySource.SQL_LAB,
     )
+    print("This engine should be GraphService: ", engine)
+    print(database.database_name)
     # Sharing a single connection and cursor across the
     # execution of all statements (if many)
-    if database.database_name == 'test_neo4j':
+    if database.database_name == 'Neo4j':
         is_neo4j = True
         print('Neo4j connect test progress.')
         cursor = engine.default_graph
@@ -627,6 +644,7 @@ def execute_sql_statements(  # pylint: disable=too-many-arguments, too-many-loca
     payload.update(
         {
             "status": QueryStatus.SUCCESS,
+            "is_neo4j": is_neo4j,
             "data": data,
             "columns": all_columns,
             "selected_columns": selected_columns,

@@ -48,18 +48,32 @@ class CreateDatasetCommand(BaseCommand):
         try:
             # Creates SqlaTable (Dataset)
             dataset = DatasetDAO.create(self._properties, commit=False)
+            print(self._properties)
+            print(dataset.get_perm())
+            print(dataset.schema_perm)
             # Updates columns and metrics from the dataset
-            dataset.fetch_metadata(commit=False)
-            # Add datasource access permission
-            security_manager.add_permission_view_menu(
-                "datasource_access", dataset.get_perm()
-            )
-            # Add schema access permission if exists
-            if dataset.schema:
+            if str(self._properties['database']) == 'Neo4j':
+                print("We are here now!")
                 security_manager.add_permission_view_menu(
-                    "schema_access", dataset.schema_perm
+                    "datasource_access", dataset.get_perm()
                 )
-            db.session.commit()
+                # Add schema access permission if exists
+                if dataset.schema:
+                    security_manager.add_permission_view_menu(
+                        "schema_access", dataset.schema_perm
+                    )
+            else:
+                dataset.fetch_metadata(commit=False)
+                # Add datasource access permission
+                security_manager.add_permission_view_menu(
+                    "datasource_access", dataset.get_perm()
+                )
+                # Add schema access permission if exists
+                if dataset.schema:
+                    security_manager.add_permission_view_menu(
+                        "schema_access", dataset.schema_perm
+                    )
+                db.session.commit()
         except (SQLAlchemyError, DAOCreateFailedError) as ex:
             logger.warning(ex, exc_info=True)
             db.session.rollback()
