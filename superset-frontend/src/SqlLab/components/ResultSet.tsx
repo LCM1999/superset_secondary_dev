@@ -640,6 +640,7 @@ export default class ResultSet extends React.PureComponent<
 
   render() {
     const { query } = this.props;
+    console.log(query)
     let sql;
     let exploreDBId = query.dbId;
     if (this.props.database && this.props.database.explore_database_id) {
@@ -720,7 +721,7 @@ export default class ResultSet extends React.PureComponent<
         ({ data } = results);
       }
       console.log(results['is_neo4j'])
-      //console.log(data)
+      console.log(query)
       if (results['is_neo4j']) {
         return (
         <>
@@ -735,9 +736,9 @@ export default class ResultSet extends React.PureComponent<
           displayObjectSize = {false}
         />
         </>
-        )
+        );
       }
-      if (data && data.length > 0) {
+      else if (data && data.length > 0) {
         const expandedColumns = results.expanded_columns
           ? results.expanded_columns.map(col => col.name)
           : [];
@@ -761,8 +762,8 @@ export default class ResultSet extends React.PureComponent<
           <Alert type="warning" message={t('The query returned no data')} />
         );
       }
-    }
-    if (query.cached || (query.state === 'success' && !query.results)) {
+    } 
+    else if (query.cached || (query.state === 'success' && !query.results)) {
       if (query.isDataPreview) {
         return (
           <Button

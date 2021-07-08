@@ -2528,7 +2528,7 @@ class Superset(BaseSupersetView):  # pylint: disable=too-many-public-methods
             query_id = query.id
             with utils.timeout(seconds=timeout, error_message=timeout_msg):
                 # pylint: disable=no-value-for-parameter
-                #print("Should be here: ", rendered_query)
+                print("Should be here: ", rendered_query)
                 data = sql_lab.get_sql_results(
                     query.id,
                     rendered_query,
