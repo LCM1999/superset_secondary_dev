@@ -169,13 +169,6 @@ const metric = {
   description: t('Metric'),
 };
 
-const node_or_link = {
-  ...metrics,
-  multi: false,
-  label: t('node or link'),
-  description: t("Query Node or Link"),
-}
-
 export function columnChoices(datasource) {
   if (datasource && datasource.columns) {
     return datasource.columns
@@ -191,8 +184,6 @@ export const controls = {
   metrics,
 
   metric,
-
-  node_or_link,
 
   datasource: {
     type: 'DatasourceControl',

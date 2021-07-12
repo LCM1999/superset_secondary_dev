@@ -385,6 +385,22 @@ class Database(
     def get_quoter(self) -> Callable[[str, Any], str]:
         return self.get_dialect().identifier_preparer.quote
 
+    def get_json(
+        self,
+        sql: str,
+        schema: Optional[str] = None,
+        mutator: Optional[Callable[[pd.DataFrame], None]] = None,
+    ) -> pd.DataFrame:
+        cypher = sql
+        print('Start Get Database Server')
+        engine = self.get_sqla_engine(schema=schema)
+        print('Got it')
+        username = utils.get_username()
+        self.db_engine_spec.execute(engine.default_graph, cypher)
+        print('FINISH')
+        json_data = self.db_engine_spec.fetch_data()
+        return json_data
+
     def get_df(  # pylint: disable=too-many-locals
         self,
         sql: str,

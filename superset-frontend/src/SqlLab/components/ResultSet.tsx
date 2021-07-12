@@ -640,7 +640,6 @@ export default class ResultSet extends React.PureComponent<
 
   render() {
     const { query } = this.props;
-    console.log(query)
     let sql;
     let exploreDBId = query.dbId;
     if (this.props.database && this.props.database.explore_database_id) {
@@ -720,8 +719,9 @@ export default class ResultSet extends React.PureComponent<
       } else if (results && results.data) {
         ({ data } = results);
       }
+      data = JSON.parse(JSON.stringify(data))
+      console.log(data)
       console.log(results['is_neo4j'])
-      console.log(query)
       if (results['is_neo4j']) {
         return (
         <>

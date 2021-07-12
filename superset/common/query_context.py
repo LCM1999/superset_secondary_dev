@@ -82,6 +82,7 @@ class QueryContext:
         result_type: Optional[ChartDataResultType] = None,
         result_format: Optional[ChartDataResultFormat] = None,
     ) -> None:
+        print("HERE? ", queries)
         self.datasource = ConnectorRegistry.get_datasource(
             str(datasource["type"]), int(datasource["id"]), db.session
         )
