@@ -37,12 +37,15 @@ class Neo4jEngineSpec(BaseEngineSpec):
         nodes = []
         links = []
         cursor_data = cls.cursor.data()
-        print('Cursor Data: ', cursor_data)
+        print('Cursor Data: ', len(cursor_data))
 
         for item in cursor_data:
+            print("What item: ", item)
+            print("What item_keys: ", item.keys())
             node = {}
             link = {}
-            if item['r']:
+            print("if item['r']: ", item['r'])
+            if item['r'] is not None:
                 node1 = {}
                 node2 = {}
                 link = {}
@@ -51,11 +54,13 @@ class Neo4jEngineSpec(BaseEngineSpec):
                 r_link = item['r']
 
                 node1['label'] = str(s_node.labels).replace(':', '')
+                node1['id'] = s_node.identity
                 keys = s_node.keys()
                 for key in keys:
                     node1[key] = s_node[key]
 
                 node2['label'] = str(e_node.labels).replace(':', '')
+                node2['id'] = e_node.identity
                 keys = e_node.keys()
                 for key in keys:
                     node2[key] = e_node[key]
@@ -65,12 +70,12 @@ class Neo4jEngineSpec(BaseEngineSpec):
                 keys = r_link.keys()
                 for key in keys:
                     link[key] = r_link[key]
-                if node1 not in nodes:
-                    nodes.append(node1)
-                if node2 not in nodes:
-                    nodes.append(node2)
+                #if node1 not in nodes:
+                #    nodes.append(node1)
+                #if node2 not in nodes:
+                #    nodes.append(node2)
                 links.append(link)
-            elif item.keys()[0] == 'n':
+            if item['n'] is not None:
                 node['label'] = str(item['n'].labels).replace(':', '')
                 keys = item['n'].keys()
                 for key in keys:

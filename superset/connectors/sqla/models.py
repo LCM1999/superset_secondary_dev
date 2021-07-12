@@ -480,15 +480,14 @@ def get_query_cypher_str_extended(query_obj: Dict[str, Any]) -> QueryStringExten
     interval = ' '
     path = 'p'
     with_relation = ''
-    from_node = '()-'
+    from_node = '(n)-'
     to_node = '->()'
-    label = ''
+    label = '[r]'
     if nodes_label_comp:
         from_node = '(n:`' + nodes_label_comp + '`)-'
     if links_label_comp:
         to_node = '[r:`' + links_label_comp + '`)-'
-        with_relation = ',r'
-    cypher = match + interval + path + '=' + from_node + label + to_node + interval + the_return + interval + path + with_relation
+    cypher = match + interval + path + '=' + from_node + label + to_node + interval + the_return + interval + 'n,r'
 
     if number_limit != 'None':
         limit = "LIMIT"
