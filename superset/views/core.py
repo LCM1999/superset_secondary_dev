@@ -434,7 +434,10 @@ class Superset(BaseSupersetView):  # pylint: disable=too-many-public-methods
         payload = viz_obj.get_df_payload()
         if viz_obj.has_error(payload):
             return json_error_response(payload=payload, status=400)
-        return self.json_response({"data": payload["df"].to_dict("records")})
+        if viz_obj.datasource.database.database_kind:
+            return self.json_response({"data": payload['df']})
+        else:
+            return self.json_response({"data": payload["df"].to_dict("records")})
 
     def get_samples(self, viz_obj: BaseViz) -> FlaskResponse:
         if viz_obj.datasource.database.database_kind:

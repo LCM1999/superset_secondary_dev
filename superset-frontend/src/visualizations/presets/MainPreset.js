@@ -78,7 +78,7 @@ import FilterBoxChartPlugin from '../FilterBox/FilterBoxChartPlugin';
 import TimeTableChartPlugin from '../TimeTable/TimeTableChartPlugin';
 import { FeatureFlag } from '../../featureFlags';
 // new Viz Plugin here
-import { HelloWorldChartPlugin } from '@superset-ui/plugin-chart-hello-word/src';
+import HelloWorldChartPlugin from '@superset-ui/plugin-chart-hello-word/src';
 
 export default class MainPreset extends Preset {
   constructor() {
