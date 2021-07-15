@@ -42,7 +42,7 @@ import { prepareCopyToClipboardTabularData } from '../../utils/common';
 import { exploreChart } from '../../explore/exploreUtils';
 import { CtasEnum } from '../actions/sqlLab';
 import { Query } from '../types';
-import ReactJson from 'react-json-view';
+//import ReactJson from 'react-json-view';
 
 enum DatasetRadioState {
   SAVE_NEW = 1,
@@ -719,7 +719,7 @@ export default class ResultSet extends React.PureComponent<
       } else if (results && results.data) {
         ({ data } = results);
       }
-      data = JSON.parse(JSON.stringify(data))
+      data = JSON.parse(JSON.stringify(data));
       console.log(data)
       console.log(results['is_neo4j'])
       if (results['is_neo4j']) {
@@ -727,14 +727,9 @@ export default class ResultSet extends React.PureComponent<
         <>
         {this.renderControls()}
         {sql}
-        <ReactJson
-          src = {results.data}
-          style = {{fontFamily:'sana-serif'}}
-          name = {null} 
-          enableClipboard = {false}
-          displayDataTypes = {false}
-          displayObjectSize = {false}
-        />
+        <pre>
+          {JSON.stringify(data, undefined, 2)}
+        </pre>
         </>
         );
       }
