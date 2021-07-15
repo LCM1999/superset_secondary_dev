@@ -170,7 +170,6 @@ class AnnotationDatasource(BaseDatasource):
 
 
 class TableColumn(Model, BaseColumn):
-
     """ORM object for table columns, each table can have multiple columns"""
 
     __tablename__ = "table_columns"
@@ -340,8 +339,8 @@ class TableColumn(Model, BaseColumn):
         ):
             tf = (
                 self.table.database.get_extra()
-                .get("python_date_format_by_column_name", {})
-                .get(self.column_name)
+                    .get("python_date_format_by_column_name", {})
+                    .get(self.column_name)
             )
 
         if tf:
@@ -374,7 +373,6 @@ class TableColumn(Model, BaseColumn):
 
 
 class SqlMetric(Model, BaseMetric):
-
     """ORM object for metrics, each table can have multiple metrics"""
 
     __tablename__ = "sql_metrics"
@@ -467,10 +465,42 @@ sqlatable_user = Table(
 )
 
 
+def get_query_cypher_str_extended(query_obj: Dict[str, Any]) -> QueryStringExtended:
+    label_expected = 'path'
+    prequeries = []
+    print("What is the query object: ", query_obj)
+    number_limit = str(query_obj['number_limit'])
+    nodes_label_subject = query_obj.get('nodes_label_subject', None)
+    nodes_label_comp = query_obj.get('nodes_label_comp', None)
+    links_label_subject = query_obj.get('links_label_subject', None)
+    links_label_comp = query_obj.get('links_label_comp', None)
+    cypher = ""
+    match = "MATCH"
+    the_return = "RETURN"
+    interval = ' '
+    path = 'p'
+    with_relation = ''
+    from_node = '(n)-'
+    to_node = '->()'
+    label = '[r]'
+    if nodes_label_comp:
+        from_node = '(n:`' + nodes_label_comp + '`)-'
+    if links_label_comp:
+        to_node = '[r:`' + links_label_comp + '`)-'
+    cypher = match + interval + path + '=' + from_node + label + to_node + interval + the_return + interval + 'n,r'
+
+    if number_limit != 'None':
+        limit = "LIMIT"
+        cypher = cypher + interval + limit + interval + number_limit
+
+    return QueryStringExtended(
+        labels_expected=label_expected, sql=cypher, prequeries=prequeries
+    )
+
+
 class SqlaTable(  # pylint: disable=too-many-public-methods,too-many-instance-attributes
     Model, BaseDatasource
 ):
-
     """An ORM object for SqlAlchemy table references"""
 
     type = "table"
@@ -582,9 +612,9 @@ class SqlaTable(  # pylint: disable=too-many-public-methods,too-many-instance-at
         schema = schema or None
         query = (
             session.query(cls)
-            .join(Database)
-            .filter(cls.table_name == datasource_name)
-            .filter(Database.database_name == database_name)
+                .join(Database)
+                .filter(cls.table_name == datasource_name)
+                .filter(Database.database_name == database_name)
         )
         # Handling schema being '' or None, which is easier to handle
         # in python than in the SQLA query in a multi-dialect way
@@ -711,7 +741,7 @@ class SqlaTable(  # pylint: disable=too-many-public-methods,too-many-instance-at
                 # from different drivers that fall outside CompileError
                 except Exception:  # pylint: disable=broad-except
                     col.update(
-                        {"type": "UNKNOWN", "generic_type": None, "is_dttm": None,}
+                        {"type": "UNKNOWN", "generic_type": None, "is_dttm": None, }
                     )
         return cols
 
@@ -780,8 +810,8 @@ class SqlaTable(  # pylint: disable=too-many-public-methods,too-many-instance-at
 
         qry = (
             select([target_col.get_sqla_col()])
-            .select_from(self.get_from_clause(tp))
-            .distinct()
+                .select_from(self.get_from_clause(tp))
+                .distinct()
         )
         if limit:
             qry = qry.limit(limit)
@@ -818,6 +848,8 @@ class SqlaTable(  # pylint: disable=too-many-public-methods,too-many-instance-at
         return QueryStringExtended(
             labels_expected=sqlaq.labels_expected, sql=sql, prequeries=sqlaq.prequeries
         )
+
+    # Process Cypher
 
     def get_query_str(self, query_obj: QueryObjectDict) -> str:
         query_str_ext = self.get_query_str_extended(query_obj)
@@ -977,10 +1009,11 @@ class SqlaTable(  # pylint: disable=too-many-public-methods,too-many-instance-at
             return [or_(*clauses) for clauses in filters_grouped.values()]
         except TemplateError as ex:
             raise QueryObjectValidationError(
-                _("Error in jinja expression in RLS filters: %(msg)s", msg=ex.message,)
+                _("Error in jinja expression in RLS filters: %(msg)s", msg=ex.message, )
             )
 
-    def get_sqla_query(  # pylint: disable=too-many-arguments,too-many-locals,too-many-branches,too-many-statements
+    def get_sqla_query(
+        # pylint: disable=too-many-arguments,too-many-locals,too-many-branches,too-many-statements
         self,
         metrics: Optional[List[Metric]] = None,
         granularity: Optional[str] = None,
@@ -1474,11 +1507,6 @@ class SqlaTable(  # pylint: disable=too-many-public-methods,too-many-instance-at
 
     def query(self, query_obj: QueryObjectDict) -> QueryResult:
         qry_start_dttm = datetime.now()
-        query_str_ext = self.get_query_str_extended(query_obj)
-        sql = query_str_ext.sql
-        status = utils.QueryStatus.SUCCESS
-        errors = None
-        error_message = None
 
         def assign_column_label(df: pd.DataFrame) -> Optional[pd.DataFrame]:
             """
@@ -1501,32 +1529,70 @@ class SqlaTable(  # pylint: disable=too-many-public-methods,too-many-instance-at
                         _("Db engine did not return all queried columns")
                     )
                 if len(df.columns) > len(labels_expected):
-                    df = df.iloc[:, 0 : len(labels_expected)]
+                    df = df.iloc[:, 0: len(labels_expected)]
                 df.columns = labels_expected
             return df
 
-        try:
-            df = self.database.get_df(sql, self.schema, mutator=assign_column_label)
-        except Exception as ex:  # pylint: disable=broad-except
-            df = pd.DataFrame()
-            status = utils.QueryStatus.FAILED
-            logger.warning(
-                "Query %s on schema %s failed", sql, self.schema, exc_info=True
-            )
-            db_engine_spec = self.db_engine_spec
-            errors = [
-                dataclasses.asdict(error) for error in db_engine_spec.extract_errors(ex)
-            ]
-            error_message = utils.error_msg_from_exception(ex)
+        print("Is Neo4j? ", self.database.database_kind)
+        if self.database.database_kind:
+            query_str_ext = get_query_cypher_str_extended(query_obj)
+            print('The built Cypher: ', query_str_ext)
+            sql = query_str_ext.sql
 
-        return QueryResult(
-            status=status,
-            df=df,
-            duration=datetime.now() - qry_start_dttm,
-            query=sql,
-            errors=errors,
-            error_message=error_message,
-        )
+            status = utils.QueryStatus.SUCCESS
+            errors = None
+            error_message = None
+            try:
+                json_data = self.database.get_json(sql, self.schema,
+                                                   assign_column_label)
+            except Exception as ex:
+                df = pd.DataFrame
+                status = utils.QueryStatus.FAILED
+                logger.exception("Query %s on schema %s failed", sql, self.schema)
+                db_engine_spec = self.database.db_engine_spec
+                errors = [
+                    dataclasses.asdict(error) for error in
+                    db_engine_spec.extract_errors(ex)
+                ]
+                error_message = utils.error_msg_from_exception(ex)
+
+            return QueryResult(
+                status=status,
+                df=json_data,
+                duration=datetime.now() - qry_start_dttm,
+                query=sql,
+                errors=errors,
+                error_message=error_message,
+            )
+        else:
+            query_str_ext = self.get_query_str_extended(query_obj)
+            sql = query_str_ext.sql
+            status = utils.QueryStatus.SUCCESS
+            errors = None
+            error_message = None
+            try:
+                df = self.database.get_df(sql, self.schema, mutator=assign_column_label)
+            except Exception as ex:  # pylint: disable=broad-except
+                df = pd.DataFrame()
+                status = utils.QueryStatus.FAILED
+                logger.warning(
+                    "Query %s on schema %s failed", sql, self.schema, exc_info=True
+                )
+                db_engine_spec = self.db_engine_spec
+                errors = [
+                    dataclasses.asdict(error) for error in
+                    db_engine_spec.extract_errors(ex)
+                ]
+                error_message = utils.error_msg_from_exception(ex)
+
+            return QueryResult(
+                status=status,
+                df=df,
+                duration=datetime.now() - qry_start_dttm,
+                query=sql,
+                errors=errors,
+                error_message=error_message,
+            )
 
     def get_sqla_table_object(self) -> Table:
         return self.database.get_table(self.table_name, schema=self.schema)
@@ -1610,8 +1676,8 @@ class SqlaTable(  # pylint: disable=too-many-public-methods,too-many-instance-at
     ) -> List["SqlaTable"]:
         query = (
             session.query(cls)
-            .filter_by(database_id=database.id)
-            .filter_by(table_name=datasource_name)
+                .filter_by(database_id=database.id)
+                .filter_by(table_name=datasource_name)
         )
         if schema:
             query = query.filter_by(schema=schema)
@@ -1668,7 +1734,6 @@ class SqlaTable(  # pylint: disable=too-many-public-methods,too-many-instance-at
 
 sa.event.listen(SqlaTable, "after_insert", security_manager.set_perm)
 sa.event.listen(SqlaTable, "after_update", security_manager.set_perm)
-
 
 RLSFilterRoles = Table(
     "rls_filter_roles",

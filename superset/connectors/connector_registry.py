@@ -51,6 +51,8 @@ class ConnectorRegistry:
         """Safely get a datasource instance, raises `DatasetNotFoundError` if
         `datasource_type` is not registered or `datasource_id` does not
         exist."""
+        print("Lets see what is 'cls.sources': ", str(cls.sources[datasource_type]))
+        
         if datasource_type not in cls.sources:
             raise DatasetNotFoundError()
 

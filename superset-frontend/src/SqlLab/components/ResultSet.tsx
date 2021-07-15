@@ -42,7 +42,7 @@ import { prepareCopyToClipboardTabularData } from '../../utils/common';
 import { exploreChart } from '../../explore/exploreUtils';
 import { CtasEnum } from '../actions/sqlLab';
 import { Query } from '../types';
-import ReactJson from 'react-json-view';
+//import ReactJson from 'react-json-view';
 
 enum DatasetRadioState {
   SAVE_NEW = 1,
@@ -719,25 +719,21 @@ export default class ResultSet extends React.PureComponent<
       } else if (results && results.data) {
         ({ data } = results);
       }
+      data = JSON.parse(JSON.stringify(data));
+      console.log(data)
       console.log(results['is_neo4j'])
-      //console.log(data)
       if (results['is_neo4j']) {
         return (
         <>
         {this.renderControls()}
         {sql}
-        <ReactJson
-          src = {results.data}
-          style = {{fontFamily:'sana-serif'}}
-          name = {null} 
-          enableClipboard = {false}
-          displayDataTypes = {false}
-          displayObjectSize = {false}
-        />
+        <pre>
+          {JSON.stringify(data, undefined, 2)}
+        </pre>
         </>
-        )
+        );
       }
-      if (data && data.length > 0) {
+      else if (data && data.length > 0) {
         const expandedColumns = results.expanded_columns
           ? results.expanded_columns.map(col => col.name)
           : [];
@@ -761,8 +757,8 @@ export default class ResultSet extends React.PureComponent<
           <Alert type="warning" message={t('The query returned no data')} />
         );
       }
-    }
-    if (query.cached || (query.state === 'success' && !query.results)) {
+    } 
+    else if (query.cached || (query.state === 'success' && !query.results)) {
       if (query.isDataPreview) {
         return (
           <Button

@@ -82,7 +82,6 @@ from superset.utils.hashing import md5_sha_from_str
 
 import dataclasses  # isort:skip
 
-
 if TYPE_CHECKING:
     from superset.connectors.base.models import BaseDatasource
 
@@ -110,7 +109,6 @@ FILTER_VALUES_REGEX = re.compile(r"filter_values\(['\"](\w+)['\"]\,")
 
 
 class BaseViz:
-
     """All visualizations derive this base class"""
 
     viz_type: Optional[str] = None
@@ -260,8 +258,9 @@ class BaseViz:
     """
     One of changes @Li_Xvyuan made to import  neo4j.  
     """
+
     def get_samples_neo4j(self):
-        return [{'neo4j':'Previewing all graph databases is not allowed.'}]
+        return [{'neo4j': 'Previewing all graph databases is not allowed.'}]
 
     def get_df(self, query_obj: Optional[QueryObjectDict] = None) -> pd.DataFrame:
         """Returns a pandas dataframe based on the query object"""
@@ -318,6 +317,8 @@ class BaseViz:
 
     def query_obj(self) -> QueryObjectDict:
         """Building a query object"""
+        print("Should Not Be Here")
+
         form_data = self.form_data
 
         self.process_query_filters()
@@ -436,7 +437,7 @@ class BaseViz:
         cache_dict["rls"] = (
             security_manager.get_rls_ids(self.datasource)
             if is_feature_enabled("ROW_LEVEL_SECURITY")
-            and self.datasource.is_rls_supported
+               and self.datasource.is_rls_supported
             else []
         )
         cache_dict["changed_on"] = self.datasource.changed_on
@@ -461,7 +462,7 @@ class BaseViz:
             payload["data"] = self.get_data(df)
         if "df" in payload:
             del payload["df"]
-
+        # TODO: wait for check
         filters = self.form_data.get("filters", [])
         filter_columns = [flt.get("col") for flt in filters]
         columns = set(self.datasource.column_names)
@@ -470,23 +471,26 @@ class BaseViz:
         # if using virtual datasource, check filter_values
         if self.datasource.sql:
             filter_values_columns = (
-                re.findall(FILTER_VALUES_REGEX, self.datasource.sql)
-            ) or []
+                                        re.findall(FILTER_VALUES_REGEX,
+                                                   self.datasource.sql)
+                                    ) or []
 
         applied_time_extras = self.form_data.get("applied_time_extras", {})
         applied_time_columns, rejected_time_columns = utils.get_time_filter_status(
             self.datasource, applied_time_extras
         )
         payload["applied_filters"] = [
-            {"column": col}
-            for col in filter_columns
-            if col in columns or col in filter_values_columns
-        ] + applied_time_columns
+                                         {"column": col}
+                                         for col in filter_columns
+                                         if
+                                         col in columns or col in filter_values_columns
+                                     ] + applied_time_columns
         payload["rejected_filters"] = [
-            {"reason": "not_in_datasource", "column": col}
-            for col in filter_columns
-            if col not in columns and col not in filter_values_columns
-        ] + rejected_time_columns
+                                          {"reason": "not_in_datasource", "column": col}
+                                          for col in filter_columns
+                                          if
+                                          col not in columns and col not in filter_values_columns
+                                      ] + rejected_time_columns
 
         return payload
 
@@ -530,9 +534,9 @@ class BaseViz:
                 invalid_columns = [
                     col
                     for col in (query_obj.get("columns") or [])
-                    + (query_obj.get("groupby") or [])
-                    + utils.get_column_names_from_metrics(
-                        cast(List[Metric], query_obj.get("metrics") or [],)
+                               + (query_obj.get("groupby") or [])
+                               + utils.get_column_names_from_metrics(
+                        cast(List[Metric], query_obj.get("metrics") or [], )
                     )
                     if col not in self.datasource.column_names
                 ]
@@ -581,6 +585,11 @@ class BaseViz:
                     self.cache_timeout,
                     self.datasource.uid,
                 )
+        print('Print Query: ', self.query)
+        if isinstance(df, dict):
+            rowcount = max(len(df['nodes']), len(df['links']))
+        else:
+            rowcount = len(df.index) if df is not None else 0
         return {
             "cache_key": cache_key,
             "cached_dttm": cache_value["dttm"] if cache_value is not None else None,
@@ -594,7 +603,7 @@ class BaseViz:
             "to_dttm": self.to_dttm,
             "status": self.status,
             "stacktrace": stacktrace,
-            "rowcount": len(df.index) if df is not None else 0,
+            "rowcount": rowcount,
         }
 
     def json_dumps(self, obj: Any, sort_keys: bool = False) -> str:
@@ -646,7 +655,6 @@ class BaseViz:
 
 
 class TableViz(BaseViz):
-
     """A basic html table that is sortable and searchable"""
 
     viz_type = "table"
@@ -778,7 +786,6 @@ class TableViz(BaseViz):
 
 
 class TimeTableViz(BaseViz):
-
     """A data table with rich time-series related columns"""
 
     viz_type = "time_table"
@@ -820,7 +827,6 @@ class TimeTableViz(BaseViz):
 
 
 class PivotTableViz(BaseViz):
-
     """A pivot table view, define your rows, columns and metrics"""
 
     viz_type = "pivot_table"
@@ -953,7 +959,6 @@ class PivotTableViz(BaseViz):
 
 
 class TreemapViz(BaseViz):
-
     """Tree map visualisation for hierarchical data."""
 
     viz_type = "treemap"
@@ -996,7 +1001,6 @@ class TreemapViz(BaseViz):
 
 
 class CalHeatmapViz(BaseViz):
-
     """Calendar heatmap."""
 
     viz_type = "cal_heatmap"
@@ -1078,7 +1082,6 @@ class CalHeatmapViz(BaseViz):
 
 
 class NVD3Viz(BaseViz):
-
     """Base class for all nvd3 vizs"""
 
     credits = '<a href="http://nvd3.org/">NVD3.org</a>'
@@ -1088,7 +1091,6 @@ class NVD3Viz(BaseViz):
 
 
 class BubbleViz(NVD3Viz):
-
     """Based on the NVD3 bubble chart"""
 
     viz_type = "bubble"
@@ -1139,7 +1141,6 @@ class BubbleViz(NVD3Viz):
 
 
 class BulletViz(NVD3Viz):
-
     """Based on the NVD3 bullet chart"""
 
     viz_type = "bullet"
@@ -1167,7 +1168,6 @@ class BulletViz(NVD3Viz):
 
 
 class BigNumberViz(BaseViz):
-
     """Put emphasis on a single metric with this big number viz"""
 
     viz_type = "big_number"
@@ -1201,7 +1201,6 @@ class BigNumberViz(BaseViz):
 
 
 class BigNumberTotalViz(BaseViz):
-
     """Put emphasis on a single metric with this big number viz"""
 
     viz_type = "big_number_total"
@@ -1223,7 +1222,6 @@ class BigNumberTotalViz(BaseViz):
 
 
 class NVD3TimeSeriesViz(NVD3Viz):
-
     """A rich line chart component with tons of options"""
 
     viz_type = "line"
@@ -1407,8 +1405,8 @@ class NVD3TimeSeriesViz(NVD3Viz):
                 combined_index = df.index.union(df2.index)
                 df2 = (
                     df2.reindex(combined_index)
-                    .interpolate(method="time")
-                    .reindex(df.index)
+                        .interpolate(method="time")
+                        .reindex(df.index)
                 )
 
                 if comparison_type == "absolute":
@@ -1423,7 +1421,7 @@ class NVD3TimeSeriesViz(NVD3Viz):
                     )
 
                 # remove leading/trailing NaNs from the time shift difference
-                diff = diff[diff.first_valid_index() : diff.last_valid_index()]
+                diff = diff[diff.first_valid_index(): diff.last_valid_index()]
 
                 chart_data.extend(
                     self.to_series(
@@ -1437,7 +1435,6 @@ class NVD3TimeSeriesViz(NVD3Viz):
 
 
 class MultiLineViz(NVD3Viz):
-
     """Pile on multiple line charts"""
 
     viz_type = "line_multi"
@@ -1514,7 +1511,6 @@ class MultiLineViz(NVD3Viz):
 
 
 class NVD3DualLineViz(NVD3Viz):
-
     """A rich line chart with dual axis"""
 
     viz_type = "dual_line"
@@ -1588,7 +1584,6 @@ class NVD3DualLineViz(NVD3Viz):
 
 
 class NVD3TimeSeriesBarViz(NVD3TimeSeriesViz):
-
     """A bar chart where the x axis is time"""
 
     viz_type = "bar"
@@ -1597,7 +1592,6 @@ class NVD3TimeSeriesBarViz(NVD3TimeSeriesViz):
 
 
 class NVD3TimePivotViz(NVD3TimeSeriesViz):
-
     """Time Series - Periodicity Pivot"""
 
     viz_type = "time_pivot"
@@ -1645,7 +1639,6 @@ class NVD3TimePivotViz(NVD3TimeSeriesViz):
 
 
 class NVD3CompareTimeSeriesViz(NVD3TimeSeriesViz):
-
     """A line chart component where you can compare the % change over time"""
 
     viz_type = "compare"
@@ -1653,7 +1646,6 @@ class NVD3CompareTimeSeriesViz(NVD3TimeSeriesViz):
 
 
 class NVD3TimeSeriesStackedViz(NVD3TimeSeriesViz):
-
     """A rich stack area chart"""
 
     viz_type = "area"
@@ -1663,7 +1655,6 @@ class NVD3TimeSeriesStackedViz(NVD3TimeSeriesViz):
 
 
 class HistogramViz(BaseViz):
-
     """Histogram"""
 
     viz_type = "histogram"
@@ -1720,7 +1711,6 @@ class HistogramViz(BaseViz):
 
 
 class DistributionBarViz(BaseViz):
-
     """A good old bar chart"""
 
     viz_type = "dist_bar"
@@ -1805,7 +1795,6 @@ class DistributionBarViz(BaseViz):
 
 
 class SunburstViz(BaseViz):
-
     """A multi level sunburst chart"""
 
     viz_type = "sunburst"
@@ -1853,7 +1842,6 @@ class SunburstViz(BaseViz):
 
 
 class SankeyViz(BaseViz):
-
     """A Sankey diagram that requires a parent-child dataset"""
 
     viz_type = "sankey"
@@ -1878,7 +1866,8 @@ class SankeyViz(BaseViz):
         source, target = self.groupby
         (value,) = self.metric_labels
         df.rename(
-            columns={source: "source", target: "target", value: "value",}, inplace=True,
+            columns={source: "source", target: "target", value: "value", },
+            inplace=True,
         )
         df["source"] = df["source"].astype(str)
         df["target"] = df["target"].astype(str)
@@ -1918,7 +1907,6 @@ class SankeyViz(BaseViz):
 
 
 class ChordViz(BaseViz):
-
     """A Chord diagram"""
 
     viz_type = "chord"
@@ -1953,7 +1941,6 @@ class ChordViz(BaseViz):
 
 
 class CountryMapViz(BaseViz):
-
     """A country centric"""
 
     viz_type = "country_map"
@@ -1990,7 +1977,6 @@ class CountryMapViz(BaseViz):
 
 
 class WorldMapViz(BaseViz):
-
     """A country centric world map"""
 
     viz_type = "world_map"
@@ -2050,7 +2036,6 @@ class WorldMapViz(BaseViz):
 
 
 class FilterBoxViz(BaseViz):
-
     """A multi filter, multi-choice filter box to make dashboards interactive"""
 
     viz_type = "filter_box"
@@ -2117,7 +2102,6 @@ class FilterBoxViz(BaseViz):
 
 
 class ParallelCoordinatesViz(BaseViz):
-
     """Interactive parallel coordinate implementation
 
     Uses this amazing javascript library
@@ -2150,7 +2134,6 @@ class ParallelCoordinatesViz(BaseViz):
 
 
 class HeatmapViz(BaseViz):
-
     """A nice heatmap visualization that support high density through canvas"""
 
     viz_type = "heatmap"
@@ -2207,7 +2190,6 @@ class HeatmapViz(BaseViz):
 
 
 class HorizonViz(NVD3TimeSeriesViz):
-
     """Horizon chart
 
     https://www.npmjs.com/package/d3-horizon-chart
@@ -2222,7 +2204,6 @@ class HorizonViz(NVD3TimeSeriesViz):
 
 
 class MapboxViz(BaseViz):
-
     """Rich maps made with Mapbox"""
 
     viz_type = "mapbox"
@@ -2361,7 +2342,6 @@ class MapboxViz(BaseViz):
 
 
 class DeckGLMultiLayer(BaseViz):
-
     """Pile on multiple DeckGL layers"""
 
     viz_type = "deck_multi"
@@ -2388,7 +2368,6 @@ class DeckGLMultiLayer(BaseViz):
 
 
 class BaseDeckGLViz(BaseViz):
-
     """Base class for deck.gl visualizations"""
 
     is_timeseries = False
@@ -2549,7 +2528,6 @@ class BaseDeckGLViz(BaseViz):
 
 
 class DeckScatterViz(BaseDeckGLViz):
-
     """deck.gl's ScatterLayer"""
 
     viz_type = "deck_scatter"
@@ -2598,7 +2576,6 @@ class DeckScatterViz(BaseDeckGLViz):
 
 
 class DeckScreengrid(BaseDeckGLViz):
-
     """deck.gl's ScreenGridLayer"""
 
     viz_type = "deck_screengrid"
@@ -2624,7 +2601,6 @@ class DeckScreengrid(BaseDeckGLViz):
 
 
 class DeckGrid(BaseDeckGLViz):
-
     """deck.gl's DeckLayer"""
 
     viz_type = "deck_grid"
@@ -2654,7 +2630,6 @@ def geohash_to_json(geohash_code: str) -> List[List[float]]:
 
 
 class DeckPathViz(BaseDeckGLViz):
-
     """deck.gl's PathLayer"""
 
     viz_type = "deck_path"
@@ -2701,7 +2676,6 @@ class DeckPathViz(BaseDeckGLViz):
 
 
 class DeckPolygon(DeckPathViz):
-
     """deck.gl's Polygon Layer"""
 
     viz_type = "deck_polygon"
@@ -2731,7 +2705,6 @@ class DeckPolygon(DeckPathViz):
 
 
 class DeckHex(BaseDeckGLViz):
-
     """deck.gl's DeckLayer"""
 
     viz_type = "deck_hex"
@@ -2750,7 +2723,6 @@ class DeckHex(BaseDeckGLViz):
 
 
 class DeckGeoJson(BaseDeckGLViz):
-
     """deck.gl's GeoJSONLayer"""
 
     viz_type = "deck_geojson"
@@ -2769,7 +2741,6 @@ class DeckGeoJson(BaseDeckGLViz):
 
 
 class DeckArc(BaseDeckGLViz):
-
     """deck.gl's Arc Layer"""
 
     viz_type = "deck_arc"
@@ -2804,7 +2775,6 @@ class DeckArc(BaseDeckGLViz):
 
 
 class EventFlowViz(BaseViz):
-
     """A visualization to explore patterns in event sequences"""
 
     viz_type = "event_flow"
@@ -2836,7 +2806,6 @@ class EventFlowViz(BaseViz):
 
 
 class PairedTTestViz(BaseViz):
-
     """A table displaying paired t-test values"""
 
     viz_type = "paired_ttest"
@@ -2905,7 +2874,6 @@ class PairedTTestViz(BaseViz):
 
 
 class RoseViz(NVD3TimeSeriesViz):
-
     viz_type = "rose"
     verbose_name = _("Time Series - Nightingale Rose Chart")
     sort_series = False
@@ -2936,7 +2904,6 @@ class RoseViz(NVD3TimeSeriesViz):
 
 
 class PartitionViz(NVD3TimeSeriesViz):
-
     """
     A hierarchical data visualization with support for time series.
     """
@@ -3114,12 +3081,126 @@ class PartitionViz(NVD3TimeSeriesViz):
         return self.nest_values(levels)
 
 
+# append Viz
+class NetGraphViz(NVD3Viz):
+    viz_type = 'net_graph'
+    verbose_name = ("Net Graph")
+    sort_series = False
+    is_timeseries = False
+
+    def get_data(self, df: pd.DataFrame) -> VizData:
+        chart_data = self.to_series(df)
+        return chart_data
+
+    def to_series(self, df, classed=""):
+        nodes = []
+        links = []
+        nodes = df['nodes']
+        links = df['links']
+        return {
+            'nodes': nodes,
+            'links': links,
+        }
+
+    def get_df(self, query_obj: Optional[QueryObjectDict] = None) -> pd.DataFrame:
+        if not query_obj:
+            query_obj = self.query_obj()
+        if not query_obj:
+            return pd.DataFrame()
+
+        self.error_msg = ""
+
+        timestamp_format = None
+
+        self.results = self.datasource.query(query_obj)
+        self.query = self.results.query
+        self.status = self.results.status
+        self.error_msg = self.results.error_message
+
+        df = self.results.df
+        return df
+
+    def query_obj(self) -> QueryObjectDict:
+        print("Should Be Here")
+        form_data = self.form_data
+        self.process_query_filters()
+        nodes_label_subject = None
+        nodes_label_comp = None
+        links_label_subject = None
+        links_label_comp = None
+        if form_data.get("nodes_label_choose", None):
+            nodes_label_subject = form_data["nodes_label_choose"][0]['subject']
+            nodes_label_comp = form_data["nodes_label_choose"][0]['comparator']
+        if form_data.get("nodes_label_choose", None):
+            links_label_subject = form_data["links_label_choose"][0]['subject']
+            links_label_comp = form_data["links_label_choose"][0]['comparator']
+
+        is_timeseries = self.is_timeseries
+        granularity = form_data.get("granularity") or form_data.get("granularity_sqla")
+        limit = form_data.get("number_limit")
+        timeseries_limit_metric = form_data.get("timeseries_limit_metric")
+        row_limit = int(form_data.get("row_limit") or config["ROW_LIMIT"])
+        order_desc = form_data.get("order_desc", True)
+
+        try:
+            since, until = get_since_until(
+                relative_start=relative_start,
+                relative_end=relative_end,
+                time_range=form_data.get("time_range"),
+                since=form_data.get("since"),
+                until=form_data.get("until"),
+            )
+        except ValueError as ex:
+            raise QueryObjectValidationError(str(ex))
+
+        time_shift = ""
+        self.time_shift = parse_past_timedelta(time_shift)
+        from_dttm = None if since is None else (since - self.time_shift)
+        to_dttm = None if until is None else (until - self.time_shift)
+        if from_dttm and to_dttm and from_dttm > to_dttm:
+            raise QueryObjectValidationError(
+                _("From date cannot be larger than to date")
+            )
+
+        self.from_dttm = from_dttm
+        self.to_dttm = to_dttm
+        extras = {
+            "druid_time_origin": form_data.get("druid_time_origin", ""),
+            "having": form_data.get("having", ""),
+            "having_druid": form_data.get("having_filters", []),
+            "time_grain_sqla": form_data.get("time_grain_sqla"),
+            "time_range_endpoints": form_data.get("time_range_endpoints"),
+            "where": form_data.get("where", ""),
+        }
+
+        if self.datasource.database.database_kind:
+            d = {
+                "granularity": granularity,
+                "from_dttm": from_dttm,
+                "to_dttm": to_dttm,
+                "is_timeseries": is_timeseries,
+                "nodes_label_subject": nodes_label_subject,
+                "links_label_subject": links_label_subject,
+                "number_limit": limit,
+                "nodes_label_comp": nodes_label_comp,
+                "links_label_comp": links_label_comp,
+                "database_kind": self.datasource.database.database_kind,
+                "extras": extras,
+                "timeseries_limit_metric": timeseries_limit_metric,
+                "order_desc": order_desc,
+            }
+            print("The query object: ", d)
+        else:
+            raise Exception(_("NetGraphViz's datasource must be Graph Database"))
+
+        return d
 
 
 def get_subclasses(cls: Type[BaseViz]) -> Set[Type[BaseViz]]:
     return set(cls.__subclasses__()).union(
         [sc for c in cls.__subclasses__() for sc in get_subclasses(c)]
     )
+
 
 viz_types = {
     o.viz_type: o

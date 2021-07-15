@@ -78,7 +78,7 @@ import FilterBoxChartPlugin from '../FilterBox/FilterBoxChartPlugin';
 import TimeTableChartPlugin from '../TimeTable/TimeTableChartPlugin';
 import { FeatureFlag } from '../../featureFlags';
 // new Viz Plugin here
-import { HelloWorldChartPlugin } from '@superset-ui/plugin-chart-hello-word/src';
+import HelloWorldChartPlugin from '@superset-ui/plugin-chart-hello-word/src';
 
 export default class MainPreset extends Preset {
   constructor() {
@@ -146,7 +146,7 @@ export default class MainPreset extends Preset {
         new TimeGrainFilterPlugin().configure({ key: 'filter_timegrain' }),
         new EchartsTreeChartPlugin().configure({ key: 'tree_chart' }),
         // register new plugin here
-        new HelloWorldChartPlugin().configure({ key: 'hello_world' }),
+        new HelloWorldChartPlugin().configure({ key: 'net_graph' }),
         ...experimentalplugins,
       ],
     });

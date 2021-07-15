@@ -204,6 +204,11 @@ export function getExploreUrl({
 
 export const shouldUseLegacyApi = formData => {
   const vizMetadata = getChartMetadataRegistry().get(formData.viz_type);
+  // Let net graph Viz Plugin use legacy API
+  console.log("VizMeta.type: ", formData.viz_type);
+  if (formData.viz_type == 'net_graph') {
+    return true;
+  }
   return vizMetadata ? vizMetadata.useLegacyApi : false;
 };
 

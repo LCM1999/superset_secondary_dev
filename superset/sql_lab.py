@@ -487,11 +487,12 @@ def execute_sql_statements(  # pylint: disable=too-many-arguments, too-many-loca
         )
 
     # Breaking down into multiple statements
-    if rendered_query.find('-->'):
+    print("AAA  ", rendered_query.find('-->'))
+    if rendered_query.find('-->') != -1:
         parsed_query = ParsedQuery(rendered_query, isCypher=True)
     else:
         parsed_query = ParsedQuery(rendered_query, strip_comments=True)
-    print("Parsed Cypher is: ", parsed_query.sql)
+        print("Parsed Cypher is: ", parsed_query.sql)
     if not db_engine_spec.run_multiple_statements_as_one:
         statements = parsed_query.get_statements()
         logger.info(
