@@ -919,7 +919,7 @@ class DatabaseRestApi(BaseSupersetModelRestApi):
         preferred_databases: List[str] = app.config.get("PREFERRED_DATABASES", [])
         #print(preferred_databases)
         available_databases = []
-        #print(get_available_engine_specs().items())
+        print(get_available_engine_specs().items())
         for engine_spec, drivers in get_available_engine_specs().items():
             payload: Dict[str, Any] = {
                 "name": engine_spec.engine_name,

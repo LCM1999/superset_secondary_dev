@@ -1090,6 +1090,7 @@ PREFERRED_DATABASES: List[str] = [
     "MySQL",
     "SQLite",
     "Neo4j",
+    "Materialize",
     # etc.
 ]
 

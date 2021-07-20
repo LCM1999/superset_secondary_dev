@@ -53,7 +53,6 @@ class CreateDatasetCommand(BaseCommand):
             print(dataset.schema_perm)
             # Updates columns and metrics from the dataset
             if str(self._properties['database']) == 'Neo4j':
-                print("We are here now!")
                 security_manager.add_permission_view_menu(
                     "datasource_access", dataset.get_perm()
                 )
