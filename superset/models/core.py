@@ -19,6 +19,7 @@
 import enum
 import json
 import logging
+from os import name
 import textwrap
 # import py2neo here
 from py2neo import *
@@ -73,6 +74,19 @@ logger = logging.getLogger(__name__)
 PASSWORD_MASK = "X" * 10
 DB_CONNECTION_MUTATOR = config["DB_CONNECTION_MUTATOR"]
 
+class ViewColumn():
+    def __init__(self, name, is_default, type):
+        self.name = name
+        self.is_default = is_default
+        self.type = type
+
+class VIEWS_SOURCES():
+    name: str
+    columns: list
+    def __init__(self, name, columns):
+        self.name = name
+        self.columns = columns
+        
 
 class Url(Model, AuditMixinNullable):
     """Used for the short url feature"""
@@ -513,6 +527,14 @@ class Database(
             database_kind = False
         return database_kind
 
+    @property
+    def is_materialize(self) -> bool:
+        if str(self.sqlalchemy_uri).endswith('materialize'):
+            print('Is Materialize database.')
+            return True
+        else:
+            return False
+
     @cache_util.memoized_func(
         key=lambda self, *args, **kwargs: f"db:{self.id}:schema:None:table_list",
         cache=cache_manager.data_cache,
@@ -668,6 +690,34 @@ class Database(
         meta = MetaData(**extra.get("metadata_params", {}))
         if self.database_kind:
             return self.get_sqla_engine()
+        elif self.is_materialize:
+            sql1 = 'SHOW SOURCES;'
+            sql2 = 'SHOW VIEWS;'
+            r1 = self.get_sqla_engine().execute(sql1)
+            r2 = self.get_sqla_engine().execute(sql2)
+            print("SOURCES: ", r1)
+            print("VIEWS: ", r2)
+            table = []
+            for source in r1:
+                table.append(source[0])
+            for view in r2:
+                table.append(view[0])
+            if table_name not in table:
+                raise Exception("Entered Table Not Found")
+            else:
+                sql = 'SHOW COLUMNS FROM ' + table_name + ';'
+                res = self.get_sqla_engine().execute(sql)
+                columns = []
+                for column in res:
+                    columns.append(
+                      ViewColumn(
+                        column[0], column[1], column[2]
+                      )
+                    )
+                return VIEWS_SOURCES(
+                    name = table_name,
+                    columns = columns
+                )
         else:
             return Table(
                 table_name,
